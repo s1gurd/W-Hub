@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2" xmlns:opns="http://www.omnigroup.com/namespace/OmniPlan/v2" id="ctCarB4WRGD">
+  <granularity>days</granularity>
+  <prototype-task>
+    <task id="t-2">
+      <title>Task 1</title>
+      <effort>28800</effort>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t-3">
+      <title>Milestone 1</title>
+      <type>milestone</type>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t-4">
+      <title>Group 1</title>
+      <type>group</type>
+    </task>
+  </prototype-task>
+  <prototype-resource>
+    <resource id="r-2">
+      <name>Resource 1</name>
+      <type>Staff</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-3">
+      <name>Equipment 1</name>
+      <type>Equipment</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-4">
+      <name>Material 1</name>
+      <type>Material</type>
+      <units-available>0</units-available>
+      <efficiency>0</efficiency>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-5">
+      <name>Group 1</name>
+      <type>Group</type>
+    </resource>
+  </prototype-resource>
+  <top-resource idref="r-1"/>
+  <resource id="r-1">
+    <name/>
+    <type>Group</type>
+    <child-resource idref="r1"/>
+    <child-resource idref="r2"/>
+    <child-resource idref="r3"/>
+    <child-resource idref="r4"/>
+    <child-resource idref="r6"/>
+  </resource>
+  <resource id="r1">
+    <name>Лид разработчик</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r2">
+    <name>Разработчик</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r3">
+    <name>3Д моделер/аниматор</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r4">
+    <name>Тестировщик</name>
+    <type>Staff</type>
+  </resource>
+  <resource id="r6">
+    <name>Дизайнер</name>
+    <type>Staff</type>
+  </resource>
+  <top-task idref="t-1"/>
+  <task id="t-1">
+    <type>group</type>
+    <child-task idref="t1"/>
+    <child-task idref="t8"/>
+    <child-task idref="t24"/>
+    <child-task idref="t32"/>
+  </task>
+  <task id="t1">
+    <title>Прпродакшен</title>
+    <type>group</type>
+    <child-task idref="t2"/>
+    <child-task idref="t5"/>
+    <child-task idref="t6"/>
+    <child-task idref="t3"/>
+    <child-task idref="t7"/>
+  </task>
+  <task id="t2">
+    <title>Техническое задание</title>
+    <effort>288000</effort>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t3">
+    <title>Утверждение</title>
+    <effort>144000</effort>
+    <start-constraint-date>2001-01-22T05:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t2"/>
+    <prerequisite-task idref="t5"/>
+    <prerequisite-task idref="t6"/>
+    <start-no-earlier-than>2001-01-22T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t5">
+    <title>UX-прототип</title>
+    <effort>288000</effort>
+    <start-constraint-date>2001-01-08T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r6"/>
+    <start-no-earlier-than>2001-01-08T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t6">
+    <title>Дизайн-концепт</title>
+    <effort>144000</effort>
+    <start-constraint-date>2001-01-15T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r6"/>
+    <start-no-earlier-than>2001-01-15T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t7">
+    <title>ТЗ+прототип+дизайн—проект</title>
+    <type>milestone</type>
+    <prerequisite-task idref="t3"/>
+  </task>
+  <task id="t8">
+    <title>Продакшен</title>
+    <type>group</type>
+    <child-task idref="t10"/>
+    <child-task idref="t18"/>
+    <child-task idref="t19"/>
+    <child-task idref="t20"/>
+    <child-task idref="t21"/>
+    <child-task idref="t23"/>
+    <prerequisite-task idref="t7"/>
+  </task>
+  <task id="t10">
+    <title>Программная часть</title>
+    <type>group</type>
+    <child-task idref="t11"/>
+    <child-task idref="t15"/>
+    <child-task idref="t30"/>
+    <child-task idref="t31"/>
+  </task>
+  <task id="t11">
+    <title>Клиентский код</title>
+    <type>group</type>
+    <child-task idref="t12"/>
+    <child-task idref="t13"/>
+    <child-task idref="t14"/>
+  </task>
+  <task id="t12">
+    <title>Архитектура</title>
+    <effort>288000</effort>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t13">
+    <title>Интеграция SDK</title>
+    <effort>288000</effort>
+    <start-constraint-date>2001-02-12T05:00:00.000Z</start-constraint-date>
+    <recalculate>effort</recalculate>
+    <fixed-duration>144000</fixed-duration>
+    <prerequisite-task idref="t12"/>
+    <assignment idref="r2"/>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2001-02-12T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t14">
+    <title>Разработка модулей</title>
+    <effort>288000</effort>
+    <recalculate>effort</recalculate>
+    <fixed-duration>288000</fixed-duration>
+    <prerequisite-task idref="t12"/>
+    <prerequisite-task idref="t13"/>
+    <assignment idref="r2"/>
+  </task>
+  <task id="t15">
+    <title>Сетевой код</title>
+    <type>group</type>
+    <child-task idref="t16"/>
+    <child-task idref="t17"/>
+    <prerequisite-task idref="t12"/>
+  </task>
+  <task id="t16">
+    <title>Архитектура</title>
+    <effort>288000</effort>
+    <start-constraint-date>2001-02-19T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r1"/>
+    <start-no-earlier-than>2001-02-19T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t17">
+    <title>Разработка  модулей</title>
+    <effort>432000</effort>
+    <prerequisite-task idref="t14"/>
+    <prerequisite-task idref="t16"/>
+    <assignment idref="r2"/>
+  </task>
+  <task id="t18">
+    <title>3Д контент</title>
+    <effort>432000</effort>
+    <start-constraint-date>2001-02-05T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r3"/>
+    <start-no-earlier-than>2001-02-05T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t19">
+    <title>Утверждение контента</title>
+    <effort>144000</effort>
+    <start-constraint-date>2001-02-26T05:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t18"/>
+    <start-no-earlier-than>2001-02-26T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t20">
+    <title>Дизайн UI</title>
+    <effort>288000</effort>
+    <start-constraint-date>2001-02-05T05:00:00.000Z</start-constraint-date>
+    <assignment idref="r6"/>
+    <start-no-earlier-than>2001-02-05T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t21">
+    <title>Утверждение дизайна</title>
+    <effort>144000</effort>
+    <start-constraint-date>2001-02-19T05:00:00.000Z</start-constraint-date>
+    <prerequisite-task idref="t20"/>
+    <start-no-earlier-than>2001-02-19T05:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t23">
+    <title>Рабочий прототип</title>
+    <type>milestone</type>
+    <prerequisite-task idref="t10"/>
+    <prerequisite-task idref="t19"/>
+    <prerequisite-task idref="t21"/>
+  </task>
+  <task id="t24">
+    <title>Интеграция</title>
+    <type>group</type>
+    <child-task idref="t26"/>
+    <child-task idref="t27"/>
+    <child-task idref="t28"/>
+    <child-task idref="t29"/>
+    <prerequisite-task idref="t23"/>
+    <prerequisite-task idref="t23"/>
+  </task>
+  <task id="t26">
+    <title>3Д-контент в ассеты</title>
+    <effort>288000</effort>
+    <recalculate>effort</recalculate>
+    <fixed-duration>144000</fixed-duration>
+    <assignment idref="r2"/>
+    <assignment idref="r3"/>
+  </task>
+  <task id="t27">
+    <title>UI</title>
+    <effort>288000</effort>
+    <start-constraint-date>2001-04-02T04:00:00.000Z</start-constraint-date>
+    <recalculate>effort</recalculate>
+    <fixed-duration>144000</fixed-duration>
+    <assignment idref="r2"/>
+    <assignment idref="r6"/>
+    <start-no-earlier-than>2001-04-02T04:00:00.000Z</start-no-earlier-than>
+  </task>
+  <task id="t28">
+    <title>API профиль-сервера</title>
+    <effort>288000</effort>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t29">
+    <title>Pre-MVP</title>
+    <type>milestone</type>
+    <prerequisite-task idref="t26"/>
+    <prerequisite-task idref="t27"/>
+    <prerequisite-task idref="t28"/>
+  </task>
+  <task id="t30">
+    <title>Система UI</title>
+    <effort>288000</effort>
+    <prerequisite-task idref="t14"/>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t31">
+    <title>Настройка рендера</title>
+    <effort>144000</effort>
+    <prerequisite-task idref="t30"/>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t32">
+    <title>Стабилизация</title>
+    <type>group</type>
+    <child-task idref="t33"/>
+    <child-task idref="t35"/>
+    <child-task idref="t34"/>
+    <child-task idref="t36"/>
+    <prerequisite-task idref="t29"/>
+  </task>
+  <task id="t33">
+    <title>Тестирование</title>
+    <effort>144000</effort>
+    <assignment idref="r4"/>
+  </task>
+  <task id="t34">
+    <title>Фиксы</title>
+    <effort>288000</effort>
+    <recalculate>effort</recalculate>
+    <fixed-duration>144000</fixed-duration>
+    <prerequisite-task idref="t33"/>
+    <assignment idref="r2"/>
+    <assignment idref="r1"/>
+  </task>
+  <task id="t35">
+    <title>Тестирование</title>
+    <effort>144000</effort>
+    <prerequisite-task idref="t33"/>
+    <assignment idref="r4"/>
+  </task>
+  <task id="t36">
+    <title>MVP</title>
+    <type>milestone</type>
+    <prerequisite-task idref="t34"/>
+  </task>
+  <critical-path root="-1" enabled="false" resources="false">
+    <color space="srgb" r="1" g="0.5" b="0.5"/>
+  </critical-path>
+  <tracking-changes/>
+</scenario>
