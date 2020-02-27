@@ -12,6 +12,7 @@ namespace GameFramework.Example.Loading.LevelBootstrap
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             CollectSpawners();
             RunSpawners();
             RunSpawnActions();

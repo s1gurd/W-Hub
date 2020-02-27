@@ -52,12 +52,7 @@ namespace GameFramework.Example.Common
                     ComponentNames.Add(componentName.ComponentName);
                 }
             }
-
-            var entities = conversionSystem.GetEntities(this.gameObject);
-            foreach (var e in entities)
-            {
-                    Debug.Log(dstManager.GetName(entity) + " : " + dstManager.GetName(e));
-            }
+            
         }
 
         private void Awake()

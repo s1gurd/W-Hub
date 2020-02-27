@@ -30,12 +30,12 @@ public class UIControllerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mainCamera is null)
+        if (mainCamera == null)
         {
             mainCamera = Camera.main;
         }
 
-        if (mainCamera is null) return;
+        if (mainCamera == null) return;
 
         ray = mainCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 
