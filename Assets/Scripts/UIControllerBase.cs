@@ -14,17 +14,29 @@ public class UIControllerBase : MonoBehaviour
     private RaycastHit _hit;
     private Vector3 _baseDotScale;
     private Ray ray;
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
+        if (mainCamera is null)
+        {
+            mainCamera = Camera.main;
+        }
+
         _baseDotScale = dot.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (mainCamera is null)
+        {
+            mainCamera = Camera.main;
+        }
+
+        if (mainCamera is null) return;
+
         ray = mainCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 
         if (!Physics.Raycast(ray, out _hit)) return;
@@ -43,6 +55,7 @@ public class UIControllerBase : MonoBehaviour
                     GameState._currentActive?.Hide();
                     GameState.cursorLock = false;
                 }
+
                 if (c == GameState._currentActive) return;
                 GameState._currentActive?.Hide();
                 c.Show();

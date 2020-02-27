@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0288ef73b24e47aa83579de109508d, type: 3}
+  m_Name: Level Actor Spawner
+  m_EditorClassIdentifier: 
+  SpawnData:
+    objectsToSpawn:
+    - {fileID: 1407048474267818, guid: 5ceb5596a2355e7428b0d24fa4765518, type: 3}
+    spawnPosition: 1
+    spawnPointsFillingMode: 0
+    fillSpawnPoints: 2
+    x: 15
+    skipBusySpawnPoints: 0
+    spawnPoints: []
+    rotationOfSpawns: 1
+    parentOfSpawns: {fileID: 0}
+    copyComponentsFromSamples: []
+    copyComponentsOfType: 0
+    deleteExistingComponents: 0
+    runSpawnActionsOnObjects: 0

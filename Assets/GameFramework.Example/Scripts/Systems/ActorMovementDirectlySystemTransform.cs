@@ -1,0 +1,47 @@
+using System;
+using GameFramework.Example.Common;
+using GameFramework.Example.Components;
+using GameFramework.Example.Utils;
+using GameFramework.Example.Utils.LowLevel;
+using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
+using UnityEngine;
+
+namespace GameFramework.Example.Systems
+{
+    [UpdateInGroup(typeof(FixedUpdateGroup))]
+    public class ActorMovementDirectlySystemTransform : ComponentSystem
+    {
+        private EntityQuery _query;
+
+        protected override void OnCreate()
+        {
+            _query = GetEntityQuery(
+                ComponentType.ReadOnly<Transform>(),
+                ComponentType.ReadOnly<MoveDirectlyData>(),
+                ComponentType.Exclude<ActorNoFollowTargetMovementData>(),
+                ComponentType.Exclude<Rigidbody>());
+        }
+
+        protected override void OnUpdate()
+        {
+            var dt = Time.DeltaTime;
+
+            Entities.With(_query).ForEach(
+                (Entity entity, Transform transform, ref MoveDirectlyData movement) =>
+                {
+                    float3 position = transform.position;
+                    float3 delta = movement.Position - position;
+
+                    if (movement.Speed > 0 && math.lengthsq(delta) > movement.Speed * movement.Speed * dt * dt)
+                    {
+                        delta = MathUtils.ClampMagnitude(delta, movement.Speed * dt);
+                    }
+
+                    if (math.lengthsq(delta) < Constants.FOLLOW_MOVEMENT_SQDIST_THRESH) return;
+                    transform.position = position + delta;
+                });
+        }
+    }
+}
