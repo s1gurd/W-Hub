@@ -73,6 +73,7 @@ namespace GameFramework.Example.Common
                         }
 
                         tempPos = spawnSettings.SpawnPoints[i % spawnSettings.SpawnPoints.Count].transform.position;
+                        
                         if (spawnSettings.RotationOfSpawns == RotationOfSpawns.UseSpawnPointRotation)
                         {
                             tempRot = spawnSettings.SpawnPoints[i % spawnSettings.SpawnPoints.Count].transform.rotation;
@@ -128,6 +129,8 @@ namespace GameFramework.Example.Common
                     if (sampledComponents.Count == 0)
                         Debug.LogError("[LEVEL ACTOR SPAWNER] No suitable components found in sample game objects!");
                 }
+                
+                Debug.Log(tempPos);
 
                 tempObj = UnityEngine.Object.Instantiate(
                     spawnSettings.ObjectsToSpawn[i % spawnSettings.ObjectsToSpawn.Count], tempPos, tempRot);
