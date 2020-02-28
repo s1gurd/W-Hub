@@ -60,7 +60,7 @@ namespace GameFramework.Example.Systems
                 .With("Down", "<Keyboard>/downArrow")
                 .With("Left", "<Keyboard>/leftArrow")
                 .With("Right", "<Keyboard>/rightArrow");
-            _lookAction.AddBinding(new InputBinding("<Pointer>/delta"));
+            //_lookAction.AddBinding(new InputBinding("<Pointer>/delta"));
 
             _lookAction.performed += context => { _lookInput = context.ReadValue<Vector2>(); };
             _lookAction.canceled += context => { _lookInput = context.ReadValue<Vector2>(); };

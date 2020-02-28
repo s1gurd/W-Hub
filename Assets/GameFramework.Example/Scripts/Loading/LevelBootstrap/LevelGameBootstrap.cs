@@ -8,6 +8,8 @@ namespace GameFramework.Example.Loading.LevelBootstrap
     [HideMonoScript]
     public class LevelGameBootstrap : MonoBehaviour, IGameModeBootstrap
     {
+        public UIControllerBase UI; 
+        
         private readonly List<IActorSpawner> _actorSpawners = new List<IActorSpawner>();
 
         private void Start()

@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/demo_scene.unity
-    guid: dd932a0e18bec4cbcab8e481ccaeeb90
+    path: Assets/Scenes/Hall.unity
+    guid: 362c2882005e8493d8f01a0429c234c1
+  - enabled: 1
+    path: Assets/Scenes/Lecture.unity
+    guid: 0248dd6560402497ca14dd9b6dc6d4e3
+  - enabled: 1
+    path: Assets/Scenes/negotation.unity
+    guid: 89ceb23cba08f48f08be5c85c95c2ef3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f8bfcecdbcce3d1449ddea196671a6c2,
       type: 2}

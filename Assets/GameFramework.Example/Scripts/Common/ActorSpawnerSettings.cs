@@ -158,10 +158,14 @@ namespace GameFramework.Example.Common
             get => deleteExistingComponents;
             set => deleteExistingComponents = value;
         }
+#if UNITY_EDITOR
+        
+
         private static IEnumerable Tags()
         {
             return UnityEditorInternal.InternalEditorUtility.tags;
         }
+#endif
         
     }
 }

@@ -11,11 +11,12 @@ namespace GameFramework.Example.Components
     {
         [ValueDropdown("Tags")] public string newTag;
 
+#if UNITY_EDITOR
         private static IEnumerable Tags()
         {
             return UnityEditorInternal.InternalEditorUtility.tags;
         }
-
+#endif
         private void Awake()
         {
             if (newTag != string.Empty)
