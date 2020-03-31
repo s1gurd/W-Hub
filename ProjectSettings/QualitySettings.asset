@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 3
+  m_CurrentQuality: 4
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -129,7 +129,7 @@ QualitySettings:
     skinWeights: 2
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 0
+    antiAliasing: 2
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -184,7 +184,8 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: a6e50625999ad1241a7490f93423a0a9,
+      type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Ultra
@@ -229,7 +230,7 @@ QualitySettings:
     Nintendo Switch: 5
     PS4: 5
     PSP2: 2
-    Standalone: 3
+    Standalone: 4
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5
