@@ -18,24 +18,33 @@ namespace GameFramework.Example.Systems
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<MoveByInputData>(),
                 ComponentType.ReadOnly<ActorMovementData>(),
-                ComponentType.ReadOnly<Rigidbody>());
+                ComponentType.ReadOnly<Rigidbody>(),
+                ComponentType.Exclude<StopMovementData>());
         }
 
         protected override void OnUpdate()
         {
             var dt = Time.DeltaTime;
-            var t = Time.time;
+            var t = (float)Time.ElapsedTime;
 
             Entities.With(_query).ForEach(
                 (Entity entity, Rigidbody rigidBody, ref ActorMovementData movement) =>
                 {
                     var speed = movement.MovementSpeed;
+                    float multiplier;
 
-                    var multiplier = MathUtils.ApplyDynamics(ref movement, t);
-
+                    if (movement.Dynamics.useDynamics)
+                    {
+                        multiplier = MathUtils.ApplyDynamics(ref movement, t);
+                    }
+                    else
+                    {
+                        multiplier = 1f;
+                        movement.MovementCache = movement.Input;
+                    }
+                    
                     var movementDelta = speed * dt * multiplier * movement.ExternalMultiplier *
-                                        Vector3.ClampMagnitude(
-                                            new Vector3(movement.MovementCache.x, 0, movement.MovementCache.y), 1f);
+                                        Vector3.ClampMagnitude(movement.MovementCache, 1f);
 
                     if (movementDelta == Vector3.zero) return;
                     
@@ -43,6 +52,7 @@ namespace GameFramework.Example.Systems
                     var position = go.transform.position;
                     var newPos = new Vector3(position.x, position.y, position.z) + movementDelta;
                     rigidBody.MovePosition(newPos);
+                    
                 }
             );
         }

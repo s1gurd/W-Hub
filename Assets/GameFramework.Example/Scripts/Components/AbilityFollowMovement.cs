@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using GameFramework.Example.Common;
 using GameFramework.Example.Components.Interfaces;
 using GameFramework.Example.Enums;
+using GameFramework.Example.Utils;
 using Sirenix.OdinInspector;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -37,14 +35,12 @@ namespace GameFramework.Example.Components
         public bool retainOffset = false;
 
         [HideInInspector] public Transform target;
-
-#if UNITY_EDITOR
+        
         private static IEnumerable Tags()
         {
-            return UnityEditorInternal.InternalEditorUtility.tags;
+            return EditorUtils.GetEditorTags();
         }
-#endif
-        
+
         public void AddComponentData(ref Entity entity)
         {
             var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace GameFramework.Example.Utils
 {
-    public class NavMeshRandomPointUtil
+    public static class NavMeshRandomPointUtil
     {
         public static Vector3 GetRandomLocation()
         {
@@ -25,11 +25,9 @@ namespace GameFramework.Example.Utils
                 {
                     continue;
                 }
-                else
-                {
-                    point = Vector3.Lerp(firstVertexPosition, secondVertexPosition,
-                        Random.Range(0.0f, 1f));
-                }
+
+                point = Vector3.Lerp(firstVertexPosition, secondVertexPosition,
+                    Random.Range(0.0f, 1f));
 
                 if (NavMesh.SamplePosition(point, out var hit, 2.0f, NavMesh.AllAreas))
                 {

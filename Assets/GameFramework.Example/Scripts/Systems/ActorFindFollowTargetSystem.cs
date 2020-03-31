@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Components;
 using GameFramework.Example.Enums;
 using GameFramework.Example.Utils;
@@ -18,11 +20,13 @@ namespace GameFramework.Example.Systems
         {
             _queryMovement = GetEntityQuery(
                 ComponentType.ReadOnly<ActorFollowMovementData>(),
-                ComponentType.ReadWrite<ActorNoFollowTargetMovementData>());
+                ComponentType.ReadWrite<ActorNoFollowTargetMovementData>(),
+                ComponentType.ReadOnly<AbilityFollowMovement>());
 
             _queryRotation = GetEntityQuery(
                 ComponentType.ReadOnly<ActorFollowRotationData>(),
-                ComponentType.ReadWrite<ActorNoFollowTargetRotationData>());
+                ComponentType.ReadWrite<ActorNoFollowTargetRotationData>(),
+                ComponentType.ReadOnly<AbilityFollowRotation>());
         }
 
         protected override void OnUpdate()
@@ -37,7 +41,7 @@ namespace GameFramework.Example.Systems
 
                         follow.target =
                             FindActorsUtils.ChooseActor(follow.gameObject.transform, targets, follow.strategy);
-                        
+
                         if (follow.target == null) return;
                     }
 
@@ -63,28 +67,24 @@ namespace GameFramework.Example.Systems
                     followData.Origin = follow.target.rotation.eulerAngles;
                     PostUpdateCommands.RemoveComponent<ActorNoFollowTargetRotationData>(entity);
                     var t = typeof(ActorNoFollowTargetRotationData);
-                    PostUpdateCommands.RemoveComponent(entity,t);
+                    PostUpdateCommands.RemoveComponent(entity, t);
                 }
             );
         }
-        
+
         private List<Transform> GetTargetList(GameObject source, TargetType followTarget, string name, string tag)
         {
             var targets = new List<Transform>();
-            
+
             switch (followTarget)
             {
                 case TargetType.ComponentName:
                     Entities.WithAll<ActorData>().ForEach(
                         (Entity entity, Transform obj) =>
                         {
-                            foreach (var component in obj.gameObject.GetComponents<IComponentName>())
-                            {
-                                if (component.ComponentName.Equals(name, StringComparison.Ordinal))
-                                {
-                                    targets.Add(obj);
-                                }
-                            }
+                            targets.AddRange(from component in obj.gameObject.GetComponents<IComponentName>()
+                                where component.ComponentName.Equals(name, StringComparison.Ordinal)
+                                select obj);
                         });
                     break;
                 case TargetType.ChooseByTag:
@@ -96,14 +96,15 @@ namespace GameFramework.Example.Systems
                     {
                         targets.Add(t.transform);
                     }
+
+                    break;
+                case TargetType.None:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             return targets;
         }
-        
-        
     }
 }

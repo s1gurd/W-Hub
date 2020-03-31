@@ -2,7 +2,6 @@ using GameFramework.Example.Common;
 using GameFramework.Example.Components;
 using GameFramework.Example.Utils.LowLevel;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameFramework.Example.Systems
@@ -17,7 +16,8 @@ namespace GameFramework.Example.Systems
             _query = GetEntityQuery(
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<ActorRotationByLookInputData>(),
-                ComponentType.ReadOnly<PlayerInputData>());
+                ComponentType.ReadOnly<PlayerInputData>(),
+                ComponentType.Exclude<StopRotationData>());
         }
 
         protected override void OnUpdate()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameFramework.Example.Common;
 using GameFramework.Example.Components;
 using GameFramework.Example.Components.Interfaces;
@@ -28,18 +29,15 @@ namespace GameFramework.Example.Systems
             Entities.With(_query).ForEach(
                 (Entity entity, AbilityPlayerInput mapping, ref PlayerInputData input) =>
                 {
-                    var buffer = EntityManager.GetBuffer<ActionInputBuffer>(entity);
+                    var buffer = input.CustomInput;
+
                     for (var i = 0; i < Constants.INPUT_BUFFER_CAPACITY; i++)
                     {
-                        
-                            if (Math.Abs(buffer[i].Value) < Constants.INPUT_THRESH) continue;
-                            var index = i;
-                            mapping.customBindings.FindAll(b => b.index == index)
-                                .ConvertAll(a => (IActorAbility) a.action).ForEach(a => a.Execute());
-
-                        
-                            
-
+                        if (Math.Abs(buffer[i]) < Constants.INPUT_THRESH) continue;
+                        var index = i;
+                        mapping.customBindings.FindAll(b => b.index == index)
+                            .ConvertAll(a => (List<MonoBehaviour>) a.actions).ForEach(actions =>
+                                actions.ForEach(a => (a as IActorAbility)?.Execute()));
                     }
                 });
         }

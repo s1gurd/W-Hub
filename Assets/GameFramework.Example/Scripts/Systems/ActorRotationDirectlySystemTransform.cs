@@ -18,7 +18,8 @@ namespace GameFramework.Example.Systems
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<RotateDirectlyData>(),
                 ComponentType.Exclude<ActorNoFollowTargetRotationData>(),
-                ComponentType.Exclude<Rigidbody>());
+                ComponentType.Exclude<Rigidbody>(),
+                ComponentType.Exclude<StopRotationData>());
         }
 
         protected override void OnUpdate()

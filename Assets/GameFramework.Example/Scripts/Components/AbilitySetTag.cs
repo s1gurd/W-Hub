@@ -1,5 +1,6 @@
 using System.Collections;
 using GameFramework.Example.Components.Interfaces;
+using GameFramework.Example.Utils;
 using Sirenix.OdinInspector;
 using Unity.Entities;
 using UnityEngine;
@@ -10,13 +11,11 @@ namespace GameFramework.Example.Components
     public class AbilitySetTag : MonoBehaviour, IActorAbility
     {
         [ValueDropdown("Tags")] public string newTag;
-
-#if UNITY_EDITOR
+        
         private static IEnumerable Tags()
         {
-            return UnityEditorInternal.InternalEditorUtility.tags;
+            return EditorUtils.GetEditorTags();
         }
-#endif
         private void Awake()
         {
             if (newTag != string.Empty)

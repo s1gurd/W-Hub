@@ -1,11 +1,9 @@
-using System;
 using GameFramework.Example.Common;
 using GameFramework.Example.Components;
 using GameFramework.Example.Utils;
 using GameFramework.Example.Utils.LowLevel;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 using UnityEngine;
 
 namespace GameFramework.Example.Systems
@@ -14,14 +12,15 @@ namespace GameFramework.Example.Systems
     public class ActorMovementDirectlySystemTransform : ComponentSystem
     {
         private EntityQuery _query;
-
+        
         protected override void OnCreate()
         {
             _query = GetEntityQuery(
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<MoveDirectlyData>(),
                 ComponentType.Exclude<ActorNoFollowTargetMovementData>(),
-                ComponentType.Exclude<Rigidbody>());
+                ComponentType.Exclude<Rigidbody>(),
+                ComponentType.Exclude<StopMovementData>());
         }
 
         protected override void OnUpdate()

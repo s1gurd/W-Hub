@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Components.Interfaces;
-using GameFramework.Example.Utils;
 using GameFramework.Example.Utils.LowLevel;
 using Sirenix.OdinInspector;
 using Unity.Entities;
@@ -38,7 +38,7 @@ namespace GameFramework.Example.Common
         {
             ActorEntity = entity;
             WorldEntityManager = dstManager;
-            
+
             if (!ComponentName.Equals(string.Empty)) ComponentNames.Add(this.ComponentName);
             dstManager.AddComponentData(entity, new ActorData());
 
@@ -52,24 +52,24 @@ namespace GameFramework.Example.Common
                     ComponentNames.Add(componentName.ComponentName);
                 }
             }
-            
         }
 
         private void Awake()
         {
             if (World.DefaultGameObjectInjectionWorld == null)
             {
-                UnityEngine.Debug.LogError(
+                Debug.LogError(
                     "[ACTOR CONVERT TO ENTITY] Convert Entity failed because there was no Active World");
                 return;
             }
-            
+
             // Root ConvertToEntity is responsible for converting the whole hierarchy
             if (transform.parent != null && transform.parent.GetComponentInParent<ConvertToEntity>() != null)
                 return;
 
             EntityConversionUtils.ConvertAndInjectOriginal(this.gameObject);
         }
+
 
         public void PerformSpawnActions()
         {
@@ -90,14 +90,9 @@ namespace GameFramework.Example.Common
         {
             foreach (var action in actions)
             {
-                if (action is IActorAbility || action is null)
-                {
-                    continue;
-                }
-                else
-                {
-                    return false;
-                }
+                if (action is IActorAbility || action is null) continue;
+
+                return false;
             }
 
             return true;

@@ -4,6 +4,7 @@ using GameFramework.Example.Utils.LowLevel;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Mathematics;
 
 namespace GameFramework.Example.Systems
 {
@@ -11,15 +12,17 @@ namespace GameFramework.Example.Systems
     public class PlayerMovementSystem : JobComponentSystem
     {
         
+        [BurstCompile]
         private struct PlayerMovementJob : IJobForEach<PlayerInputData, ActorMovementData>
         {
             public void Execute(ref PlayerInputData input, ref ActorMovementData movement)
             {
-                movement.Input = MathUtils.RotateVector(input.Move, 0 - input.CompensateAngle);
-               
+                 var inputVector = MathUtils.RotateVector(input.Move, 0 - input.CompensateAngle);
+                 movement.Input = new float3(inputVector.x, 0f, inputVector.y);
             }
         }
 
+        [BurstCompile]
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
             var job = new PlayerMovementJob();

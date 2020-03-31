@@ -1,4 +1,3 @@
-using GameFramework.Example.Common;
 using GameFramework.Example.Components;
 using GameFramework.Example.Utils.LowLevel;
 using Unity.Entities;
@@ -17,20 +16,23 @@ namespace GameFramework.Example.Systems
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<ActorMovementData>(),
                 ComponentType.ReadOnly<ActorRotationFollowMovementData>(),
-                ComponentType.ReadOnly<Rigidbody>());
+                ComponentType.ReadOnly<Rigidbody>(),
+                ComponentType.Exclude<StopRotationData>());
         }
 
         protected override void OnUpdate()
         {
+            var dt = Time.DeltaTime;
+            
             Entities.With(_query).ForEach((Entity entity, Rigidbody rigidBody, ref ActorMovementData movement,
                 ref ActorRotationFollowMovementData rotation) =>
             {
-                var dir = new Vector3(movement.MovementCache.x, 0, movement.MovementCache.y);
+                var dir = new Vector3(movement.MovementCache.x, 0, movement.MovementCache.z);
                 if (dir == Vector3.zero) return;
                 var rot = rigidBody.rotation;
                 var newRot = Quaternion.LookRotation(Vector3.Normalize(dir));
                 if (newRot == rot) return;
-                rigidBody.MoveRotation(Quaternion.Lerp(rot, newRot, Time.DeltaTime * rotation.RotationSpeed));
+                rigidBody.MoveRotation(Quaternion.Lerp(rot, newRot, dt * rotation.RotationSpeed));
             });
         }
     }

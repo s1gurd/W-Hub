@@ -4,6 +4,7 @@ using GameFramework.Example.Common;
 using GameFramework.Example.Components.Interfaces;
 using GameFramework.Example.Enums;
 using Sirenix.OdinInspector;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -35,8 +36,7 @@ namespace GameFramework.Example.Components
             {
                 dstManager.AddComponentData(entity, new CompensateCameraRotation());
             }
-
-            dstManager.AddBuffer<ActionInputBuffer>(entity).ResizeUninitialized(Constants.INPUT_BUFFER_CAPACITY);
+            
             switch (inputSource)
             {
                 case InputSource.Default:
@@ -50,6 +50,8 @@ namespace GameFramework.Example.Components
                 case InputSource.AIInput:
                     dstManager.AddComponentData(entity, new AIInputData());
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -64,12 +66,7 @@ namespace GameFramework.Example.Components
         public float2 Mouse;
         public float2 Look;
         public float CompensateAngle;
-    }
-
-    [InternalBufferCapacity(Constants.INPUT_BUFFER_CAPACITY)]
-    public struct ActionInputBuffer : IBufferElementData
-    {
-        public float Value;
+        public FixedList512<float> CustomInput;
     }
 
     public struct UserInputData : IComponentData

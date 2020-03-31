@@ -1,4 +1,4 @@
-namespace GameFramework.Example.Common
+namespace GameFramework.Example.Common.Interfaces
 {
     public interface IComponentName
     {

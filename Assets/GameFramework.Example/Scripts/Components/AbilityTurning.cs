@@ -18,7 +18,7 @@ namespace GameFramework.Example.Components
         public float camRayLen = 20f;
 
         [ShowIf("@rotationMode == ActorRotationMode.LookAtMouse")]
-        public String groundLayerName = "Ground";
+        public string groundLayerName = "Ground";
 
         [ShowIf("@rotationMode == ActorRotationMode.RotateByLookInput")]
         public float sensitivity = 3f;
@@ -55,7 +55,7 @@ namespace GameFramework.Example.Components
                     });
                     break;
                 case ActorRotationMode.RotateByLookInput:
-                    dstManager.AddComponentData(entity, new ActorRotationByLookInputData()
+                    dstManager.AddComponentData(entity, new ActorRotationByLookInputData
                     {
                         Sensitivity = sensitivity,
                         RotateX = Horizontal,

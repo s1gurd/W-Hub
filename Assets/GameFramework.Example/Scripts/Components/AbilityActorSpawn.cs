@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Components.Interfaces;
 using GameFramework.Example.Utils;
 using Sirenix.OdinInspector;
@@ -10,7 +10,7 @@ using UnityEngine;
 namespace GameFramework.Example.Components
 {
     [HideMonoScript][DoNotAddToEntity]
-    public class AbilityActorSpawn : MonoBehaviour, IActorAbility, IActorSpawner, IComponentName, IDeclareReferencedPrefabs
+    public class AbilityActorSpawn : MonoBehaviour, IActorAbility, IActorSpawner, IComponentName
     {
         public string ComponentName => _componentName;
 
@@ -20,9 +20,7 @@ namespace GameFramework.Example.Components
         public ActorSpawnerSettings SpawnData;
 
         public List<GameObject> SpawnedObjects { get; private set; }
-        
-        
-        
+
         public void AddComponentData(ref Entity entity)
         {
         }
@@ -30,6 +28,7 @@ namespace GameFramework.Example.Components
         public void Execute()
         {
             Spawn();
+            RunSpawnActions();
         }
         
         public void Spawn()
@@ -44,10 +43,6 @@ namespace GameFramework.Example.Components
                 _ = ActorSpawn.RunSpawnActions(SpawnedObjects);
             }
         }
-
-        public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
-        {
-            referencedPrefabs.AddRange(SpawnData.objectsToSpawn);
-        }
+        
     } 
 }

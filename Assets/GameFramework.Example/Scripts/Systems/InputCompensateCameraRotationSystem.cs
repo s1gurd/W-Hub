@@ -17,7 +17,6 @@ namespace GameFramework.Example.Systems
             if (_camera == null)
             {
                 var c = Camera.main;
-                
                 if (c == null) return;
                 
                 _camera = c.transform;

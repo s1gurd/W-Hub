@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Enums;
+using GameFramework.Example.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -158,14 +160,12 @@ namespace GameFramework.Example.Common
             get => deleteExistingComponents;
             set => deleteExistingComponents = value;
         }
-#if UNITY_EDITOR
-        
+
 
         private static IEnumerable Tags()
         {
-            return UnityEditorInternal.InternalEditorUtility.tags;
+            return EditorUtils.GetEditorTags();
         }
-#endif
-        
+
     }
 }

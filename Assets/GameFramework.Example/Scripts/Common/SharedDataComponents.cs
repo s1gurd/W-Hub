@@ -18,4 +18,8 @@ namespace GameFramework.Example.Common
         public float3 Rotation;
         public bool3 Constraints;
     }
+
+    public struct TimerData : IComponentData
+    {
+    }
 }

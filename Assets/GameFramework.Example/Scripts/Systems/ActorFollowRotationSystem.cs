@@ -18,7 +18,8 @@ namespace GameFramework.Example.Systems
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<ActorFollowRotationData>(),
                 ComponentType.ReadOnly<RotateDirectlyData>(),
-                ComponentType.Exclude<ActorNoFollowTargetRotationData>());
+                ComponentType.Exclude<ActorNoFollowTargetRotationData>(),
+                ComponentType.Exclude<StopRotationData>());
         }
 
         protected override void OnUpdate()
@@ -35,7 +36,7 @@ namespace GameFramework.Example.Systems
 
                     float3 targetEuler = follow.target.rotation.eulerAngles;
                     
-                    var newRotation = follow.retainRotationOffset ? (targetEuler - data.Origin) : targetEuler;
+                    var newRotation = follow.retainRotationOffset ? targetEuler - data.Origin : targetEuler;
                     rotation.Rotation = newRotation;
                 }
             );

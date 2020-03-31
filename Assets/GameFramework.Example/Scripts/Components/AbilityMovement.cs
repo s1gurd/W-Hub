@@ -25,7 +25,7 @@ namespace GameFramework.Example.Components
         {
             var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            _dynamics.useDynamics = useDynamics;
+        _dynamics.useDynamics = useDynamics;
             if (useDynamics)
             {
                 _dynamics.curveIn.keyframe0 = movementStart.curve.keys[0];
@@ -71,8 +71,8 @@ namespace GameFramework.Example.Components
         public float InRatio;
         public float OutRatio;
         public float ExternalMultiplier;
-        public float2 MovementCache;
-        public float2 Input;
+        public float3 MovementCache;
+        public float3 Input;
     }
 
     public struct ActorMovementAnimationData : IComponentData

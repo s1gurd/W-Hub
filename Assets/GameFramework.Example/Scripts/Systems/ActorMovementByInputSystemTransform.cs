@@ -3,7 +3,6 @@ using GameFramework.Example.Components;
 using GameFramework.Example.Utils;
 using GameFramework.Example.Utils.LowLevel;
 using Unity.Entities;
-using Unity.Transforms;
 using UnityEngine;
 
 namespace GameFramework.Example.Systems
@@ -12,21 +11,22 @@ namespace GameFramework.Example.Systems
     public class ActorMovementByInputSystemTransform : ComponentSystem
     {
         private EntityQuery _query;
-
+        
         protected override void OnCreate()
         {
             _query = GetEntityQuery(
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<MoveByInputData>(),
                 ComponentType.ReadOnly<ActorMovementData>(),
-                ComponentType.Exclude<Rigidbody>());
+                ComponentType.Exclude<Rigidbody>(),
+                ComponentType.Exclude<StopMovementData>());
         }
 
         protected override void OnUpdate()
         {
             var dt = Time.DeltaTime;
-            var t = Time.time;
-
+            var t = (float)Time.ElapsedTime;
+            
             Entities.With(_query).ForEach(
                 (Entity entity, Transform transform, ref ActorMovementData movement) =>
                 {
@@ -42,15 +42,13 @@ namespace GameFramework.Example.Systems
                         multiplier = 1f;
                         movement.MovementCache = movement.Input;
                     }
-
+                    
                     var movementDelta = speed * dt * multiplier * movement.ExternalMultiplier *
-                                        Vector3.ClampMagnitude(
-                                            new Vector3(movement.MovementCache.x, 0, movement.MovementCache.y), 1f);
+                                        Vector3.ClampMagnitude(movement.MovementCache, 1f);
 
                     if (movementDelta == Vector3.zero) return;
                     
-                    var position = transform.position;
-                    var newPos = new Vector3(position.x, position.y, position.z) + movementDelta;
+                    var newPos = transform.position + movementDelta;
                     transform.position = newPos;
                 }
             );

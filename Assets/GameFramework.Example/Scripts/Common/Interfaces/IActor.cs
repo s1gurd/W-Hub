@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using GameFramework.Example.Components.Interfaces;
 using Unity.Entities;
 using UnityEngine;
 
-namespace GameFramework.Example.Common
+namespace GameFramework.Example.Common.Interfaces
 {
     public interface IActor
     {

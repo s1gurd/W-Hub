@@ -22,7 +22,7 @@ namespace GameFramework.Example.Systems
         private float2 _moveInput = default;
         private float2 _mouseInput = default;
         private float2 _lookInput = default;
-        private NativeArray<float> _customInputs = new NativeArray<float>();
+        private NativeArray<float> _customInputs;
 
 
         protected override void OnCreate()
@@ -42,9 +42,8 @@ namespace GameFramework.Example.Systems
         }
 
 
-        [RequireComponentTag(typeof(ActionInputBuffer))]
-        
-        private struct PlayerInputJob : IJobForEachWithEntity<PlayerInputData, NetworkInputData>
+       [BurstCompile]
+       private struct PlayerInputJob : IJobForEachWithEntity<PlayerInputData, NetworkInputData>
         {
             public EntityCommandBuffer.Concurrent Ecb;
 
@@ -53,27 +52,21 @@ namespace GameFramework.Example.Systems
             [ReadOnly] public float2 LookInput;
             [ReadOnly] public NativeArray<float> CustomInputs;
 
-            [NativeDisableParallelForRestriction] public BufferFromEntity<ActionInputBuffer> actionInputBuffer;
-
-            private ActionInputBuffer _customInput;
-
             public void Execute(Entity entity, int index, ref PlayerInputData inputData, ref NetworkInputData network)
             {
                 inputData.Move = MoveInput;
                 inputData.Mouse = MouseInput;
                 inputData.Look = LookInput;
 
-                DynamicBuffer<ActionInputBuffer> inputBuffer = actionInputBuffer[entity];
-
                 for (var i = 0; i < CustomInputs.Length; i++)
                 {
-                    _customInput.Value = CustomInputs[i];
-                    inputBuffer[i] = _customInput;
+                    inputData.CustomInput[i] = CustomInputs[i];
                 }
             }
         }
 
 
+       [BurstCompile]
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
             var job = new PlayerInputJob
@@ -82,8 +75,7 @@ namespace GameFramework.Example.Systems
                 MoveInput = _moveInput,
                 MouseInput = _mouseInput,
                 LookInput = _lookInput,
-                CustomInputs = _customInputs,
-                actionInputBuffer = GetBufferFromEntity<ActionInputBuffer>(false)
+                CustomInputs = _customInputs
             };
             inputDeps = job.Schedule(this, inputDeps);
             _barrier.AddJobHandleForProducer(inputDeps);

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using GameFramework.Example.Enums;
-using GameFramework.Example.Loading.LevelBootstrap;
 using UnityEngine;
 
-namespace GameFramework.Example.Common
+namespace GameFramework.Example.Common.Interfaces
 {
     public interface IActorSpawnerSettings
     {

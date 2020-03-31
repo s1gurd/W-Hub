@@ -2,13 +2,11 @@ using System;
 using Unity.Entities;
 using UnityEngine;
 
-
-
 namespace GameFramework.Example.Utils.LowLevel
 {
-    public class RunFixedUpdateSystems
+    public class RunFixedUpdateSystemsObsolete
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void MoveSimulationGroup()
         {
             // This must be called AFTER DefaultWorldInitialization, otherwise DefaultWorldInitialization overwrites PlayerLoop
@@ -76,10 +74,5 @@ namespace GameFramework.Example.Utils.LowLevel
 
             return result;
         }
-    }
-
-    [UpdateInGroup(typeof(SimulationSystemGroup))]
-    public class FixedUpdateGroup : ComponentSystemGroup
-    {
     }
 }

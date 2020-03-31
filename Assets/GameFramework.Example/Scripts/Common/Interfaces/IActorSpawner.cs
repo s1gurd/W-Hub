@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameFramework.Example.Common
+namespace GameFramework.Example.Common.Interfaces
 {
     public interface IActorSpawner
     {

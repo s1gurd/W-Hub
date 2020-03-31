@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Components.Interfaces;
 using GameFramework.Example.Enums;
 using GameFramework.Example.Loading;
 using GameFramework.Example.Utils;
-using Unity.Entities;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -54,9 +54,9 @@ namespace GameFramework.Example.Common
             if (spawnSettings.SpawnPointsFillingMode == FillOrder.RandomOrder)
             {
                 spawnSettings.ObjectsToSpawn =
-                    spawnSettings.ObjectsToSpawn.OrderBy((item) => spawnSettings.Rnd.Next()).ToList();
+                    spawnSettings.ObjectsToSpawn.OrderBy(item => spawnSettings.Rnd.Next()).ToList();
                 spawnSettings.SpawnPoints =
-                    spawnSettings.SpawnPoints.OrderBy((item) => spawnSettings.Rnd.Next()).ToList();
+                    spawnSettings.SpawnPoints.OrderBy(item => spawnSettings.Rnd.Next()).ToList();
             }
 
             for (var i = 0; i < spawnCount; i++)
@@ -73,7 +73,6 @@ namespace GameFramework.Example.Common
                         }
 
                         tempPos = spawnSettings.SpawnPoints[i % spawnSettings.SpawnPoints.Count].transform.position;
-                        
                         if (spawnSettings.RotationOfSpawns == RotationOfSpawns.UseSpawnPointRotation)
                         {
                             tempRot = spawnSettings.SpawnPoints[i % spawnSettings.SpawnPoints.Count].transform.rotation;
@@ -119,6 +118,8 @@ namespace GameFramework.Example.Common
                                 case ComponentsOfType.OnlyAbilities when !(component is IActorAbility):
                                 case ComponentsOfType.OnlySimpleBehaviours when component is IActorAbility:
                                     continue;
+                                case ComponentsOfType.AllComponents:
+                                    break;
                                 default:
                                     sampledComponents.Add(component);
                                     break;
@@ -135,17 +136,18 @@ namespace GameFramework.Example.Common
 
                 var actors = tempObj.GetComponents<IActor>();
                 if (actors.Length == 0) continue;
-                foreach (var actor in actors)
+                if (actors.Length > 1)
                 {
-                    actor.Spawner = spawner;
+                    Debug.LogError("[ACTOR SPAWNER] Only one IActor Component for Actor allowed! Using 1st");
                 }
+
+                actors[0].Spawner = spawner;
 
                 if (spawnSettings.ParentOfSpawns != TargetType.None)
                 {
                     var parents = FindActorsUtils.GetActorsList(tempObj, spawnSettings.ParentOfSpawns,
                         spawnSettings.ActorWithComponentName, spawnSettings.ParentTag);
 
-                    Debug.Log(parents.Count);
                     var parent = FindActorsUtils.ChooseActor(tempObj.transform, parents, spawnSettings.ChooseStrategy);
 
                     tempObj.transform.parent = parent;
@@ -173,7 +175,7 @@ namespace GameFramework.Example.Common
                     }
                 }
 
-                if (spawnSettings.SpawnPosition == SpawnPosition.UseSpawnPoints)
+                if (spawnSettings.SpawnPosition == SpawnPosition.UseSpawnPoints && spawnSettings.SkipBusySpawnPoints)
                 {
                     spawnSettings.SpawnPoints[i % spawnSettings.SpawnPoints.Count].AddComponent<ActorSpawnedOnPoint>()
                         .actor = tempObj;
@@ -187,16 +189,8 @@ namespace GameFramework.Example.Common
 
         public static List<IActor> RunSpawnActions(IEnumerable<GameObject> objects)
         {
-            List<IActor> actors = new List<IActor>();
-
-            foreach (var o in objects)
-            {
-                var actorComponents = o.GetComponents<IActor>();
-                if (actorComponents.Length != 0)
-                {
-                    actors.AddRange(actorComponents);
-                }
-            }
+            var actors = objects.Select(o => o.GetComponent<IActor>()).Where(actorComponent => actorComponent != null)
+                .ToList();
 
             foreach (var a in actors)
             {

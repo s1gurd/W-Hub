@@ -10,15 +10,17 @@ namespace GameFramework.Example.Utils
         {
             Type type = comp.GetType();
             if (type != other.GetType()) return null; // type mis-match
-            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
             PropertyInfo[] pInfos = type.GetProperties(flags);
-            foreach (var pInfo in pInfos) {
-                if (pInfo.CanWrite) {
-                    try {
-                        pInfo.SetValue(comp, pInfo.GetValue(other, null), null);
-                    }
-                    catch { Debug.LogError("[COMPONENT REPLICATOR] Error while copying properties"); } // In case of NotImplementedException being thrown. For some reason specifying that exception didn't seem to catch it, so I didn't catch anything specific.
+            foreach (var pInfo in pInfos)
+            {
+                
+                if (!pInfo.CanWrite) continue;
+                
+                try {
+                    pInfo.SetValue(comp, pInfo.GetValue(other, null), null);
                 }
+                catch { Debug.LogError("[COMPONENT REPLICATOR] Error while copying properties"); } // In case of NotImplementedException being thrown. For some reason specifying that exception didn't seem to catch it, so I didn't catch anything specific.
             }
             FieldInfo[] fInfos = type.GetFields(flags);
             foreach (var fInfo in fInfos) {

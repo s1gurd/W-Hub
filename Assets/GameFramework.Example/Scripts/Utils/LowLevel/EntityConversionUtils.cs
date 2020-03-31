@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Unity.Entities;
 using UnityEngine;
-using static UnityEngine.LowLevel.PlayerLoop;
 
 namespace GameFramework.Example.Utils.LowLevel
 {
@@ -87,12 +86,11 @@ namespace GameFramework.Example.Utils.LowLevel
             {
                 for (int i = 0; i < types.Length; ++i)
                 {
-                    if (Array.IndexOf(types, types[i]) != i)
-                    {
-                        Debug.LogError(
-                            $"[ACTOR CONVERSION] GameObject '{gameObject}' has multiple {types[i]} components and cannot be converted, skipping.");
-                        return Entity.Null;
-                    }
+                    if (Array.IndexOf(types, types[i]) == i) continue;
+                    
+                    Debug.LogError(
+                        $"[ACTOR CONVERSION] GameObject '{gameObject}' has multiple {types[i]} components and cannot be converted, skipping.");
+                    return Entity.Null;
                 }
 
                 throw e;
@@ -103,7 +101,7 @@ namespace GameFramework.Example.Utils.LowLevel
             return entity;
         }
 
-        static void GetComponents(GameObject gameObject, bool includeGameObjectComponents, out ComponentType[] types,
+        private static void GetComponents(GameObject gameObject, bool includeGameObjectComponents, out ComponentType[] types,
             out Component[] components)
         {
             components = gameObject.GetComponents<Component>()
@@ -145,7 +143,7 @@ namespace GameFramework.Example.Utils.LowLevel
             }
         }
 
-        static Entity CreateEntity(EntityManager entityManager, EntityArchetype archetype,
+        private static Entity CreateEntity(EntityManager entityManager, EntityArchetype archetype,
             IReadOnlyList<Component> components, IReadOnlyList<ComponentType> types)
         {
             var entity = entityManager.CreateEntity(archetype);
@@ -180,9 +178,9 @@ namespace GameFramework.Example.Utils.LowLevel
             return entity;
         }
 
-        static void InjectOriginalComponents(EntityManager entityManager, Entity entity, Transform transform)
+        private static void InjectOriginalComponents(EntityManager entityManager, Entity entity, Component component)
         {
-            foreach (var com in transform.GetComponents<Component>())
+            foreach (var com in component.GetComponents<Component>())
             {
                 if (com is GameObjectEntity || com is ConvertToEntity || com is ComponentDataProxyBase)
                     continue;

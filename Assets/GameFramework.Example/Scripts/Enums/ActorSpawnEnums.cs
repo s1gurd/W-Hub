@@ -26,19 +26,4 @@ namespace GameFramework.Example.Enums
         SequentialOrder = 0,
         RandomOrder = 1
     }
-    
-    public enum InputSource
-    {
-        Default =0,
-        UserInput = 1,
-        NetworkInput = 2,
-        AIInput = 3
-    }
-    
-    public enum ComponentsOfType
-    {
-        OnlyAbilities = 0,
-        OnlySimpleBehaviours = 1,
-        AllComponents = 2
-    }
 }

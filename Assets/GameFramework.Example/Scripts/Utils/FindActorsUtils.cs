@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using GameFramework.Example.Enums;
 using Sirenix.Utilities;
 using Unity.Mathematics;
@@ -10,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace GameFramework.Example.Utils
 {
-    public class FindActorsUtils
+    public static class FindActorsUtils
     {
         //Not used for now, consider delete it later
         public static List<Transform> GetActorsList(GameObject source, TargetType targetType, string name, string tag)
@@ -65,12 +66,12 @@ namespace GameFramework.Example.Utils
                     for (var i = 1; i < targets.Count; i++)
                     {
                         var tempDistanceSq = math.distancesq(currentPosition, targets[i].position);
-                        if ((s == ChooseTargetStrategy.Nearest && tempDistanceSq < currentDistance) ||
-                            (s == ChooseTargetStrategy.Farthest && tempDistanceSq > currentDistance))
-                        {
-                            currentDistance = tempDistanceSq;
-                            t = targets[i];
-                        }
+                        
+                        if ((s != ChooseTargetStrategy.Nearest || !(tempDistanceSq < currentDistance)) &&
+                            (s != ChooseTargetStrategy.Farthest || !(tempDistanceSq > currentDistance))) continue;
+                        
+                        currentDistance = tempDistanceSq;
+                        t = targets[i];
                     }
 
                     break;

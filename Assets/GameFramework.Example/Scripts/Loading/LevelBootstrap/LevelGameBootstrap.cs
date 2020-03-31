@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,13 +9,10 @@ namespace GameFramework.Example.Loading.LevelBootstrap
     [HideMonoScript]
     public class LevelGameBootstrap : MonoBehaviour, IGameModeBootstrap
     {
-        public UIControllerBase UI; 
-        
         private readonly List<IActorSpawner> _actorSpawners = new List<IActorSpawner>();
-
+        
         private void Start()
         {
-            Application.targetFrameRate = 60;
             CollectSpawners();
             RunSpawners();
             RunSpawnActions();
@@ -22,10 +20,7 @@ namespace GameFramework.Example.Loading.LevelBootstrap
 
         public void CollectSpawners(List<IActorSpawner> spawners)
         {
-            foreach (var spawner in GetComponents<IActorSpawner>())
-            {
-                spawners.Add(spawner);
-            }
+            spawners.AddRange(GetComponents<IActorSpawner>());
         }
 
         public void RunSpawners(List<IActorSpawner> spawners)

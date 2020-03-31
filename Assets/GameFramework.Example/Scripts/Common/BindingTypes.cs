@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using GameFramework.Example.Components.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameFramework.Example.Components
+namespace GameFramework.Example.Common
 {
     [Serializable]
     public struct CustomBinding
@@ -12,11 +13,12 @@ namespace GameFramework.Example.Components
         public int index;
         [ValidateInput("MustBeAbility", "Ability MonoBehaviours must derive from IActorAbility!")]
         [SerializeField]
-        public MonoBehaviour action;
+        public List<MonoBehaviour> actions;
         
-        private bool MustBeAbility(MonoBehaviour action)
+        private bool MustBeAbility(List<MonoBehaviour> a)
         {
-            return action is IActorAbility || action is null;
+            return !a.Exists(t => !(t is IActorAbility)) || a.Count == 0;
         }
+
     }
 }

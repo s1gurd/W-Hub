@@ -8,13 +8,22 @@ namespace GameFramework.Example.Systems
     [UpdateInGroup(typeof(FixedUpdateGroup))]
     public class ActorTurningLookAtMouseSystem:ComponentSystem
     {
+        private EntityQuery _query;
+        protected override void OnCreate()
+        {
+            _query = GetEntityQuery(
+                ComponentType.ReadOnly<ActorRotationLookAtMouseData>(),
+                ComponentType.ReadOnly<Rigidbody>(),
+                ComponentType.ReadOnly<PlayerInputData>(),
+                ComponentType.Exclude<StopRotationData>());
+        }
         protected override void OnUpdate()
         {
             var mainCamera = Camera.main;
             if (mainCamera == null)
                 return;
             
-            Entities.WithAll<ActorRotationLookAtMouseData>().ForEach(
+            Entities.With(_query).ForEach(
                 (Entity entity, Rigidbody rigidBody, ref PlayerInputData input, ref ActorRotationLookAtMouseData rotation) =>
                 {
                     var mousePos = new Vector3(input.Mouse.x, input.Mouse.y, 0);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using UnityEngine;
 
 namespace GameFramework.Example.Loading.LevelBootstrap

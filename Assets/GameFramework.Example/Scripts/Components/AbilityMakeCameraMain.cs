@@ -22,7 +22,7 @@ namespace GameFramework.Example.Components
                 
                 if (mainCamera == null)
                 {
-                    mainCamera = this.gameObject.transform.GetComponentInChildren<Camera>();
+                    mainCamera = this.gameObject.GetComponentInChildren<Camera>();
                 }
                 if (mainCamera == null)
                 {
@@ -30,11 +30,14 @@ namespace GameFramework.Example.Components
                     return;
                 }
             }
+            
+            mainCamera.gameObject.tag = "MainCamera";
 
             foreach (var c in FindObjectsOfType<Camera>())
             {
-                c.gameObject.SetActive(c.gameObject == this.gameObject);
+                c.gameObject.SetActive(c.gameObject == mainCamera.gameObject);
             }
         }
+        
     }
 }

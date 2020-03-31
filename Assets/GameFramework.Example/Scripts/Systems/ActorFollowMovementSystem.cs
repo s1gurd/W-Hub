@@ -19,13 +19,15 @@ namespace GameFramework.Example.Systems
                 ComponentType.ReadOnly<ActorFollowMovementData>(),
                 ComponentType.ReadOnly<ActorMovementData>(),
                 ComponentType.ReadOnly<MoveByInputData>(),
-                ComponentType.Exclude<ActorNoFollowTargetMovementData>());
+                ComponentType.Exclude<ActorNoFollowTargetMovementData>(),
+                ComponentType.Exclude<StopMovementData>());
 
             _queryDirectly = GetEntityQuery(
                 ComponentType.ReadOnly<Transform>(),
                 ComponentType.ReadOnly<ActorFollowMovementData>(),
                 ComponentType.ReadOnly<MoveDirectlyData>(),
-                ComponentType.Exclude<ActorNoFollowTargetMovementData>());
+                ComponentType.Exclude<ActorNoFollowTargetMovementData>(),
+                ComponentType.Exclude<StopMovementData>());
         }
 
         protected override void OnUpdate()
@@ -41,8 +43,9 @@ namespace GameFramework.Example.Systems
 
                     float3 delta = follow.target.position - follow.gameObject.transform.position;
                     if (math.abs(delta.x) < Constants.FOLLOW_MOVEMENT_AXIS_THRESH) delta.x = 0f;
+                    if (math.abs(delta.y) < Constants.FOLLOW_MOVEMENT_AXIS_THRESH) delta.y = 0f;
                     if (math.abs(delta.z) < Constants.FOLLOW_MOVEMENT_AXIS_THRESH) delta.z = 0f;
-                    movement.Input = new float2(delta.x, delta.z);
+                    movement.Input = delta;
                 }
             );
 

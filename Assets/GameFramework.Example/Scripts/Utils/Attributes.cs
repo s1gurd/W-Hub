@@ -5,8 +5,5 @@ namespace GameFramework.Example.Utils
     ]
     public class DoNotAddToEntity : System.Attribute
     {
-        public DoNotAddToEntity()
-        {
-        }
     }
 }

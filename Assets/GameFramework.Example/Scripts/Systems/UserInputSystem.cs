@@ -26,18 +26,19 @@ namespace GameFramework.Example.Systems
         private float2 _moveInput;
         private float2 _mouseInput;
         private float2 _lookInput;
-        private NativeArray<float> _customInputs = new NativeArray<float>();
+        private NativeArray<float> _customInputs;
 
 
         protected override void OnCreate()
         {
-            _customInputs = new NativeArray<float>(Constants.INPUT_BUFFER_CAPACITY, Allocator.Persistent);
             _barrier = World.GetOrCreateSystem<EntityCommandBufferSystem>();
         }
 
 
         protected override void OnStartRunning()
         {
+            _customInputs = new NativeArray<float>(Constants.INPUT_BUFFER_CAPACITY, Allocator.Persistent);
+            
             _moveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
             _moveAction.AddCompositeBinding("Dpad")
                 .With("Up", "<Keyboard>/w")
@@ -100,9 +101,8 @@ namespace GameFramework.Example.Systems
             _customInputs.Dispose();
         }
 
-
-        [RequireComponentTag(typeof(ActionInputBuffer))]
-        private struct PlayerInputJob : IJobForEachWithEntity<PlayerInputData,UserInputData>
+        [BurstCompile]
+        private struct PlayerInputJob : IJobForEachWithEntity<PlayerInputData, UserInputData>
         {
             public EntityCommandBuffer.Concurrent Ecb;
 
@@ -110,10 +110,7 @@ namespace GameFramework.Example.Systems
             [ReadOnly] public float2 MouseInput;
             [ReadOnly] public float2 LookInput;
             [ReadOnly] public NativeArray<float> CustomInputs;
-
-            [NativeDisableParallelForRestriction] public BufferFromEntity<ActionInputBuffer> actionInputBuffer;
-            
-            private ActionInputBuffer _customInput;
+            [ReadOnly] public int BufferCapacity;
 
             public void Execute(Entity entity, int index, ref PlayerInputData inputData, ref UserInputData u)
             {
@@ -121,18 +118,15 @@ namespace GameFramework.Example.Systems
                 inputData.Mouse = MouseInput;
                 inputData.Look = LookInput;
 
-                DynamicBuffer<ActionInputBuffer> inputBuffer = actionInputBuffer[entity];
-
+                inputData.CustomInput.Length = BufferCapacity;
                 for (var i = 0; i < CustomInputs.Length; i++)
                 {
-                    _customInput.Value = CustomInputs[i];
-                    inputBuffer[i] = _customInput;
+                    inputData.CustomInput[i] = CustomInputs[i];
                 }
             }
-            
         }
-        
-        
+
+        [BurstCompile]
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
             var job = new PlayerInputJob
@@ -142,7 +136,7 @@ namespace GameFramework.Example.Systems
                 MouseInput = _mouseInput,
                 LookInput = _lookInput,
                 CustomInputs = _customInputs,
-                actionInputBuffer = GetBufferFromEntity<ActionInputBuffer>(false)
+                BufferCapacity = Constants.INPUT_BUFFER_CAPACITY
             };
             inputDeps = job.Schedule(this, inputDeps);
             _barrier.AddJobHandleForProducer(inputDeps);

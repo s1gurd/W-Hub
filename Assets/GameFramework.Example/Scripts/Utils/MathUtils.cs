@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace GameFramework.Example.Utils
 {
-    public class MathUtils
+    public static class MathUtils
     {
         public static float Clamp(float number, float min, float max)
         {
@@ -17,7 +17,7 @@ namespace GameFramework.Example.Utils
             var move = movement.Input;
 
             //All of this is for smooth movement starts and ends, according to Curves in Component
-            if (!move.Equals(float2.zero))
+            if (!move.Equals(float3.zero))
             {
                 movement.CurveOutStartTime = 0f;
 
@@ -26,7 +26,7 @@ namespace GameFramework.Example.Utils
                     movement.CurveInStartTime = time;
                 }
 
-                var timePassed = (time - movement.CurveInStartTime);
+                var timePassed = time - movement.CurveInStartTime;
 
                 if (timePassed < movement.Dynamics.timeScaleIn)
                 {
@@ -36,8 +36,8 @@ namespace GameFramework.Example.Utils
                     if (movement.OutRatio < 1f)
                     {
                         multiplier =
-                            MathUtils.Clamp((multiplier +
-                                             movement.Dynamics.curveOut.Evaluate(movement.OutRatio)), 0f, 1f);
+                            Clamp(multiplier +
+                                             movement.Dynamics.curveOut.Evaluate(movement.OutRatio), 0f, 1f);
                     }
                 }
                 else
@@ -57,7 +57,7 @@ namespace GameFramework.Example.Utils
                     movement.CurveOutStartTime = time;
                 }
 
-                var timePassed = (time - movement.CurveOutStartTime);
+                var timePassed = time - movement.CurveOutStartTime;
 
                 if (timePassed < movement.Dynamics.timeScaleOut)
                 {
@@ -67,7 +67,7 @@ namespace GameFramework.Example.Utils
                     if (movement.InRatio < 1f)
                     {
                         multiplier =
-                            MathUtils.Clamp((multiplier - movement.Dynamics.curveIn.Evaluate(movement.InRatio)),
+                            Clamp(multiplier - movement.Dynamics.curveIn.Evaluate(movement.InRatio),
                                 0f, 1f);
                     }
                 }
@@ -94,9 +94,9 @@ namespace GameFramework.Example.Utils
         public static float3 ClampMagnitude(float3 vector, float maxLength)
         {
             var sqrMagnitude = math.lengthsq(vector);
-            if ((double) sqrMagnitude <= (double) maxLength * (double) maxLength)
+            if (sqrMagnitude <= maxLength * (double) maxLength)
                 return vector;
-            var num1 = (float) Math.Sqrt((double) sqrMagnitude);
+            var num1 = (float) Math.Sqrt(sqrMagnitude);
             var num2 = vector.x / num1;
             var num3 = vector.y / num1;
             var num4 = vector.z / num1;

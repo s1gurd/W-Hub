@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameFramework.Example.Common;
+using GameFramework.Example.Common.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,7 +12,7 @@ namespace GameFramework.Example.Loading.LevelBootstrap
     {
         public string ComponentName => _componentName;
 
-        [Space] [ShowInInspector] [SerializeField] private string _componentName = null;
+        [Space] [ShowInInspector] [SerializeField] private string _componentName;
         [Space]
         
         public LevelActorSpawnerDataSO spawnDataFile;
