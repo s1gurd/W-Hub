@@ -717,7 +717,7 @@ MonoBehaviour:
     spawnPosition: 1
     spawnPointsFillingMode: 0
     fillSpawnPoints: 2
-    x: 6
+    x: 2
     skipBusySpawnPoints: 0
     spawnPoints: []
     rotationOfSpawns: 1
