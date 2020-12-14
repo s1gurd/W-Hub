@@ -1,6 +1,7 @@
 using System;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 namespace GameFramework.Example.Utils.LowLevel
 {
@@ -10,13 +11,13 @@ namespace GameFramework.Example.Utils.LowLevel
         private static void MoveSimulationGroup()
         {
             // This must be called AFTER DefaultWorldInitialization, otherwise DefaultWorldInitialization overwrites PlayerLoop
-            var playerLoop = ScriptBehaviourUpdateOrder.CurrentPlayerLoop;
+            var playerLoop = PlayerLoop.GetCurrentPlayerLoop();
             var func = RemoveCallback<SimulationSystemGroup>(playerLoop);
             
             if (func == null) return;
             
             InstallCallback<SimulationSystemGroup>(playerLoop, typeof(UnityEngine.PlayerLoop.FixedUpdate), func);
-            ScriptBehaviourUpdateOrder.SetPlayerLoop(playerLoop);
+            PlayerLoop.SetPlayerLoop(playerLoop);
         }
 
         private static void InstallCallback<T>(UnityEngine.LowLevel.PlayerLoopSystem playerLoop, Type subsystem,

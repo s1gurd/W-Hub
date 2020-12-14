@@ -42,23 +42,27 @@ namespace GameFramework.Example.Utils.LowLevel
                     }, null)
                 ?.CreateDelegate(typeof(UpdateComponentDataDelegate));
 
-        private delegate void SetComponentObjectDelegate(EntityManager n, Entity entity, ComponentType componentType,
-            object componentObject);
+        /*private delegate void SetComponentObjectDelegate(Unity.Entities.EntityManager n, Unity.Entities.Entity entity, Unity.Entities.ComponentType componentType,
+            System.Object componentObject);
 
-        private static readonly SetComponentObjectDelegate SetComponentObject =
-            (SetComponentObjectDelegate) typeof(EntityManager)
+        private static readonly SetComponentObjectDelegate SetComponentObject = null;
+        /*private static readonly SetComponentObjectDelegate SetComponentObject =
+            (SetComponentObjectDelegate) typeof(Unity.Entities.EntityManager)
                 .GetMethod("SetComponentObject", BindingFlags.Instance | BindingFlags.NonPublic, null,
                     CallingConventions.Any, new[]
                     {
-                        typeof(Entity), typeof(ComponentType),
-                        typeof(object)
+                        typeof(Unity.Entities.Entity), typeof(Unity.Entities.ComponentType),
+                        typeof(System.Object)
                     }, null)
-                ?.CreateDelegate(typeof(SetComponentObjectDelegate));
+                ?.CreateDelegate(typeof(SetComponentObjectDelegate));*/
+
+        
 
         public static void ConvertAndInjectOriginal(GameObject root)
         {
             using (var gameObjectWorld =
-                new GameObjectConversionSettings(World.DefaultGameObjectInjectionWorld, GameObjectConversionUtility.ConversionFlags.AssignName)
+                new GameObjectConversionSettings(World.DefaultGameObjectInjectionWorld,
+                        GameObjectConversionUtility.ConversionFlags.AssignName)
                     .CreateConversionWorld())
             {
                 AddToEntityManager(gameObjectWorld.EntityManager, root);
@@ -66,7 +70,7 @@ namespace GameFramework.Example.Utils.LowLevel
                 Convert(gameObjectWorld);
 
                 var entity = GameObjectToConvertedEntity(gameObjectWorld, root);
-                
+
                 InjectOriginalComponents(World.DefaultGameObjectInjectionWorld.EntityManager, entity, root.transform);
             }
         }
@@ -87,7 +91,7 @@ namespace GameFramework.Example.Utils.LowLevel
                 for (int i = 0; i < types.Length; ++i)
                 {
                     if (Array.IndexOf(types, types[i]) == i) continue;
-                    
+
                     Debug.LogError(
                         $"[ACTOR CONVERSION] GameObject '{gameObject}' has multiple {types[i]} components and cannot be converted, skipping.");
                     return Entity.Null;
@@ -101,11 +105,18 @@ namespace GameFramework.Example.Utils.LowLevel
             return entity;
         }
 
-        private static void GetComponents(GameObject gameObject, bool includeGameObjectComponents, out ComponentType[] types,
+        private static void GetComponents(GameObject gameObject, bool includeGameObjectComponents,
+            out ComponentType[] types,
             out Component[] components)
         {
-            components = gameObject.GetComponents<Component>()
-                .Where(comp => comp.GetType().GetCustomAttribute<DoNotAddToEntity>() == null).ToArray();
+            if (gameObject == null)
+            {
+                types = new ComponentType[0];
+                components = new Component[0];
+                return;
+            }
+            components = gameObject.GetComponents<Component>()?
+                .Where(comp => comp.GetType().GetCustomAttribute<DoNotAddToEntity>() == null)?.ToArray();
 
             var componentCount = 0;
             for (var i = 0; i != components.Length; i++)
@@ -114,7 +125,8 @@ namespace GameFramework.Example.Utils.LowLevel
                 var componentData = com as ComponentDataProxyBase;
 
                 if (com == null)
-                    Debug.LogError($"[ACTOR CONVERSION] The referenced script is missing on {gameObject.name}", gameObject);
+                    Debug.LogError($"[ACTOR CONVERSION] The referenced script is missing on {gameObject.name}",
+                        gameObject);
                 else if (componentData != null)
                     componentCount++;
                 else if (includeGameObjectComponents && !(com is GameObjectEntity))
@@ -165,12 +177,12 @@ namespace GameFramework.Example.Utils.LowLevel
                 }
                 else if (!(com is GameObjectEntity) && com != null)
                 {
-                    if (SetComponentObject is null)
+                    /*if (SetComponentObject is null)
                     {
                         throw new Exception("[ACTOR CONVERSION] General Error, everything is screwed up =(");
-                    }
+                    }*/
 
-                    SetComponentObject(entityManager, entity, types[t], com);
+                    entityManager.SetComponentObject(entity, types[t], com);
                     t++;
                 }
             }

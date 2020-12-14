@@ -21,7 +21,7 @@ namespace GameFramework.Example.Utils.LowLevel
             // The PlayerLoopSystem of type SimulationSystemGroup has to be found,
             // stored, and removed before adding it to the FixedUpdate PlayerLoopSystem.
 
-            PlayerLoopSystem playerLoop = ScriptBehaviourUpdateOrder.CurrentPlayerLoop;
+            PlayerLoopSystem playerLoop = PlayerLoop.GetCurrentPlayerLoop();
 
             // simulationSystem has to be constructed or compiler will complain due to
             //    using non-assigned variables.
@@ -93,7 +93,7 @@ namespace GameFramework.Example.Utils.LowLevel
             }
 
             // Set the beautiful, new player loop
-            ScriptBehaviourUpdateOrder.SetPlayerLoop(playerLoop);
+            PlayerLoop.SetPlayerLoop(playerLoop);
 
             return true;
         }
