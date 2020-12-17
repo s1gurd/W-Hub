@@ -66,14 +66,14 @@ public class UIControllerBase : MonoBehaviour
             LectionButton.SetActive(false);
         }
 
-        if (!UIActive && _hit.collider.gameObject.tag.Equals("NPC", StringComparison.Ordinal))
-        {
-            UserButton.SetActive(true);
-        }
-        else
-        {
-            UserButton.SetActive(false);
-        }
+//        if (!UIActive && _hit.collider.gameObject.tag.Equals("NPC", StringComparison.Ordinal))
+//        {
+//            UserButton.SetActive(true);
+//        }
+//        else
+//        {
+//            UserButton.SetActive(false);
+//        }
 
         
     }

@@ -1,0 +1,79 @@
+using System.Collections.Generic;
+using System.Linq;
+using GameFramework.Example.AI;
+using GameFramework.Example.Common;
+using GameFramework.Example.Components;
+using Unity.Collections;
+using Unity.Entities;
+using UnityEngine;
+
+namespace GameFramework.Example.Systems
+{
+    public class AIEvaluateSystem : ComponentSystem
+    {
+        private EntityQuery _queryAI;
+        private EntityQuery _queryTargets;
+
+        private readonly List<Transform> _targets = new List<Transform>();
+
+        protected override void OnCreate()
+        {
+            _queryAI = GetEntityQuery(
+                ComponentType.ReadWrite<EvaluateAIData>(),
+                ComponentType.ReadOnly<AIInputData>(),
+                ComponentType.ReadOnly<Transform>(),
+                ComponentType.ReadOnly<AbilityAIInput>(),
+                ComponentType.Exclude<DeadActorData>(),
+                ComponentType.Exclude<DestructionPendingData>(),
+                ComponentType.Exclude<SetupAIData>(),
+                ComponentType.Exclude<NetworkInputData>());
+            _queryTargets = GetEntityQuery(
+                ComponentType.ReadOnly<Transform>(),
+                ComponentType.Exclude<DeadActorData>(),
+                ComponentType.Exclude<DestructionPendingData>(),
+                ComponentType.Exclude<UIReceiverData>());
+        }
+
+        protected override void OnUpdate()
+        {
+            _targets.Clear();
+            Entities.With(_queryAI).ForEach((Entity entity, AbilityAIInput ai) =>
+                {
+                    if (_targets.Count == 0)
+                        Entities.With(_queryTargets).ForEach((Entity e, Transform transform) =>
+                        {
+                            _targets.Add(transform);
+                        });
+                    
+                    var bestPriority = float.MinValue;
+                    AIBehaviourSetting bestBehaviour = null;
+
+                    foreach (var behaviour in ai.behaviours)
+                    {
+                        var b = behaviour.BehaviourInstance;
+                        if (b == null)
+                        {
+                            Debug.LogError("[AI ABILITY] Could not find or create AI Behaviour instance!");
+                            return;
+                        }
+
+                        var score = b.Evaluate(entity, behaviour, ai,  _targets);
+
+                        if (score <= bestPriority) continue;
+
+                        bestPriority = score;
+                        bestBehaviour = behaviour;
+                    }
+                    
+                    ai.activeBehaviour = bestBehaviour;
+                    ai.activeBehaviourPriority = bestPriority;
+                    
+                    World.EntityManager.RemoveComponent<EvaluateAIData>(entity);
+                    World.EntityManager.AddComponent<SetupAIData>(entity);
+                }
+            );
+            
+            
+        }
+    }
+}

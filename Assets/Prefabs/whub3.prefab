@@ -1728,7 +1728,8 @@ GameObject:
   - component: {fileID: 7553222928673609628}
   - component: {fileID: 7553222928673609631}
   - component: {fileID: 7553222928673609626}
-  - component: {fileID: 7553222928673609629}
+  - component: {fileID: 4157424476678202112}
+  - component: {fileID: 1434826976812952932}
   m_Layer: 0
   m_Name: whub3
   m_TagString: NPC
@@ -1784,23 +1785,39 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 1.8
+  m_Height: 1.8506886
   m_Direction: 1
-  m_Center: {x: 0, y: 0.92, z: 0}
---- !u!136 &7553222928673609629
-CapsuleCollider:
+  m_Center: {x: 0, y: 0.89465564, z: 0}
+--- !u!114 &4157424476678202112
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7553222928673609630}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1.2160792
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.2119603, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e47d41c27514e84ab0ce1cee5d70b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentName: 
+  ExecuteOnSpawn: []
+--- !u!54 &1434826976812952932
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7553222928673609630}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &7553222928676844666
 GameObject:
   m_ObjectHideFlags: 0

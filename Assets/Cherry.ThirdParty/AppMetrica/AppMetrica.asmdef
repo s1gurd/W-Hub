@@ -1,0 +1,15 @@
+{
+    "name": "AppMetrica",
+    "references": [
+        "GUID:3ab3c211d17de45c892ac60b2732c180"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -99,10 +99,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2441252721824565847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a40047d4d84013b8e756bca0e9f193, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e47d41c27514e84ab0ce1cee5d70b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentName: 
+  componentName: 
   ExecuteOnSpawn: []
 --- !u!114 &5381405351796142835
 MonoBehaviour:
@@ -151,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSource: 1
   compensateCameraRotation: 0
+  minMoveInputMagnitude: 0
+  AIBehaviour: {fileID: 0}
   customBindings: []
 --- !u!114 &3828407748519534696
 MonoBehaviour:
@@ -165,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newTag: MainCamera
+  applyOnStart: 1
 --- !u!114 &7476567384822884908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,14 +180,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff8c79da9bc4d898e1e63e682db1909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTarget: 3
-  actorWithComponentName: 
-  targetTag: CameraPoint
-  strategy: 0
+  findTargetProperties:
+    targetType: 3
+    actorWithComponentName: 
+    targetTag: CameraPoint
+    ignoreSpawner: 0
+    strategy: 0
+    maxDistanceThreshold: 0
   followMovementType: 0
   movementSpeed: 0
   retainOffset: 0
-  target: {fileID: 0}
+  continousFollow: 1
+  hideIfNoTarget: 0
 --- !u!114 &3689912818419089613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,4 +212,5 @@ MonoBehaviour:
   followY: 1
   followZ: 0
   retainRotationOffset: 0
+  hideIfNoTarget: 0
   target: {fileID: 0}

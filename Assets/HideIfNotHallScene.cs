@@ -8,7 +8,7 @@ public class HideIfNotHallScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0)
+        if (SceneManager.GetActiveScene().buildIndex != 1)
         {
             this.gameObject.SetActive(false);
         }

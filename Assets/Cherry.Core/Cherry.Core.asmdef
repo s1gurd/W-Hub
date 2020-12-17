@@ -1,0 +1,25 @@
+{
+    "name": "Cherry.Core",
+    "references": [
+        "GUID:0fa4b1bfbb6165b459df012614ddeb00",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:8819f35a0fc84499b990e90a4ca1911f",
+        "GUID:2f11c543182524b5893ba83abcfb4b1f",
+        "GUID:5c9d50e9caf722f44bc403df623d5290",
+        "GUID:c0906e99f24ea6c4e8eb3868c16332ef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Cherry.Core.Editor",
+    "references": [
+        "GUID:2d4981ca910687e419c19339898a26ef"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

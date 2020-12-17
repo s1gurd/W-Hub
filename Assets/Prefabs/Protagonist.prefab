@@ -107,12 +107,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9205056724610329325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a40047d4d84013b8e756bca0e9f193, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e47d41c27514e84ab0ce1cee5d70b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentName: 
-  ExecuteOnSpawn:
-  - {fileID: 6553817299272534831}
+  componentName: 
+  ExecuteOnSpawn: []
 --- !u!114 &3389484942554075052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSource: 1
   compensateCameraRotation: 1
+  minMoveInputMagnitude: 0
+  AIBehaviour: {fileID: 0}
   customBindings: []
 --- !u!114 &2636439401206293858
 MonoBehaviour:
@@ -195,8 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f755fb37600a4c38b7d01a5e1da947d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentName: 
+  componentName: 
   SpawnData:
+    spawnerDisabled: 0
     objectsToSpawn:
     - {fileID: 2441252721824565847, guid: 79b75d6e48704c44786e24313a6c818a, type: 3}
     spawnPosition: 0
@@ -204,8 +206,10 @@ MonoBehaviour:
     fillSpawnPoints: 0
     x: 1
     skipBusySpawnPoints: 0
+    spawnPointsFrom: 0
     spawnPoints:
     - {fileID: 6390824165663044987}
+    spawnPointTag: 
     rotationOfSpawns: 0
     parentOfSpawns: 0
     actorWithComponentName: CameraPoint
@@ -215,3 +219,6 @@ MonoBehaviour:
     copyComponentsOfType: 0
     deleteExistingComponents: 0
     runSpawnActionsOnObjects: 1
+    destroyAbilityAfterSpawn: 0
+    randomSeed: 0
+  ExecuteOnAwake: 1

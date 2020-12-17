@@ -11,6 +11,6 @@ public class RestartButton : MonoBehaviour
         foreach (var e in entityArray)
             entityManager.DestroyEntity(e);
         entityArray.Dispose();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

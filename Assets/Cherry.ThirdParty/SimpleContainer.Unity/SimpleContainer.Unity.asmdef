@@ -1,0 +1,15 @@
+{
+    "name": "SimpleCon",
+    "references": [
+        "GUID:5c9d50e9caf722f44bc403df623d5290"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
