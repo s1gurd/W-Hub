@@ -36,5 +36,15 @@ public class VideoScreenController : MonoBehaviour
         } 
     }
 
+    public void NoPaymentURL()
+    {
+        Application.OpenURL("http://elka.w-hub.ru");
+    }
+    
+    public void ShowFinishedURL()
+    {
+        Application.OpenURL("http://w-hub.ru");
+    }
+
     
 }
