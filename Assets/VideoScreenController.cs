@@ -38,6 +38,7 @@ public class VideoScreenController : MonoBehaviour
 
     public void NoPaymentURL()
     {
+        Debug.Log("No Payment button");
         Application.OpenURL("http://elka.w-hub.ru");
     }
     
