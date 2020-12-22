@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using RenderHeads.Media.AVProVideo;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class VideoScreenController : MonoBehaviour
 {
-    public VideoPlayer videoScreen;
+    //public VideoPlayer videoScreen;
+    public MediaPlayer videoScreen;
     public GameObject payScreen;
     public GameObject finishScreen;
     
@@ -20,9 +22,9 @@ public class VideoScreenController : MonoBehaviour
         switch (LoginState.VideoState)
         {
             case VideoState.VideoOk:
-                videoScreen.gameObject.SetActive(true);
-                videoScreen.url = LoginState.VideoUrl;
                 Debug.Log("[VIDEO] " + LoginState.VideoUrl);
+                videoScreen.gameObject.SetActive(true);
+                videoScreen.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL, LoginState.VideoUrl);
                 videoScreen.Play();
                 break;
             case VideoState.ShowFinished:

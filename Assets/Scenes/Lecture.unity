@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f7c69d1895b4a098b4aed70c6be2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoScreen: {fileID: 962512865}
+  videoScreen: {fileID: 962512866}
   payScreen: {fileID: 1208451785}
   finishScreen: {fileID: 540143653}
 --- !u!1001 &575539350
@@ -2563,7 +2563,7 @@ VideoPlayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962512864}
-  m_Enabled: 1
+  m_Enabled: 0
   m_VideoClip: {fileID: 32900000, guid: 1d4df177bf01f9347987705b10db6a02, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
@@ -2590,6 +2590,94 @@ VideoPlayer:
   m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
+--- !u!114 &962512866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962512864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638c870cac4da414fba921606d504407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_VideoLocation: 0
+  m_VideoPath: 
+  m_AutoOpen: 0
+  m_AutoStart: 1
+  m_Loop: 0
+  m_Volume: 1
+  m_Balance: 0
+  m_Muted: 0
+  m_PlaybackRate: 1
+  m_DebugGui: 0
+  m_DebugGuiControls: 1
+  m_Persistent: 0
+  m_StereoPacking: 0
+  m_AlphaPacking: 0
+  m_DisplayDebugStereoColorTint: 0
+  m_FilterMode: 1
+  m_WrapMode: 1
+  m_AnisoLevel: 0
+  m_LoadSubtitles: 0
+  m_SubtitleLocation: 2
+  m_SubtitlePath: 
+  m_events:
+    m_PersistentCalls:
+      m_Calls: []
+  _optionsWindows:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    videoApi: 0
+    useHardwareDecoding: 1
+    useUnityAudio: 0
+    useTextureMips: 0
+    forceAudioOutputDeviceName: 
+  _optionsMacOSX:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    httpHeaderJson: 
+  _optionsIOS:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    useYpCbCr420Textures: 0
+    httpHeaderJson: 
+  _optionsTVOS:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    useYpCbCr420Textures: 0
+    httpHeaderJson: 
+  _optionsAndroid:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    useFastOesPath: 0
+    showPosterFrame: 0
+    httpHeaderJson: 
+    fileOffset: 0
+  _optionsWindowsPhone:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    useHardwareDecoding: 1
+    useUnityAudio: 0
+    useTextureMips: 0
+  _optionsWindowsUWP:
+    overridePath: 0
+    pathLocation: 2
+    path: 
+    useHardwareDecoding: 1
+    useUnityAudio: 0
+    useTextureMips: 0
+  _optionsWebGL:
+    overridePath: 0
+    pathLocation: 2
+    path: 
 --- !u!82 &962512869
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2686,6 +2774,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &962512871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962512864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2feedce2e2e63647b8f875ec0894a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0}
+  _scale: {x: 1, y: 1}
+  _material: {fileID: 2100000, guid: d1652ab31ec7f49429d62f6d92132adb, type: 2}
+  _texturePropertyName: 
+  _media: {fileID: 962512866}
+  _defaultTexture: {fileID: 0}
 --- !u!1001 &1062291718
 PrefabInstance:
   m_ObjectHideFlags: 0
