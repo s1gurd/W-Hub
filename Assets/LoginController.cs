@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,10 @@ public class LoginController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.HasKey("name"))
+        {
+            login.text = PlayerPrefs.GetString("name");
+        }
         errorMessage.text = "";
         loginForm.SetActive(true);
         errorForm.SetActive(false);
@@ -29,8 +34,10 @@ public class LoginController : MonoBehaviour
     {
         if (login.text != "" && password.text != "")
         {
-            var url = $"https://dev.api.w-hub.ru/wp-json/jwt-auth/v1/token?username={login.text}&password={password.text}";
+            var url = $"https://api.w-hub.ru/wp-json/whub/v3/auth/unity?username={login.text}&password={password.text}";
             Debug.Log(url);
+            PlayerPrefs.SetString("name", login.text);
+            PlayerPrefs.Save();
             loading.SetActive(true);
             StartCoroutine(LoginRoutine(url));
         }
@@ -51,6 +58,23 @@ public class LoginController : MonoBehaviour
             Debug.Log(www.downloadHandler.text);
             if (www.responseCode == 200)
             {
+                var s = www.downloadHandler.text;
+                if (s.Contains("video"))
+                {
+                    var sSplit = s.Split('"');
+                    s = sSplit[3].Replace("\\","");
+                    Debug.Log(s);
+                    LoginState.VideoUrl = s;
+                    LoginState.VideoState = VideoState.VideoOk;
+                } else if (s.Contains("\"has_greeting\":false"))
+                {
+                    LoginState.VideoState = VideoState.HasToPay;
+                    Debug.Log("Has to pay");
+                } else if (s.Contains("\"show_has_finished\":true"))
+                {
+                    LoginState.VideoState = VideoState.ShowFinished;
+                    Debug.Log("Finished");
+                }
                 SceneManager.LoadScene(1);
             }
             else
