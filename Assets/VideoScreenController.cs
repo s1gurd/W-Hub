@@ -7,25 +7,42 @@ using UnityEngine.Video;
 
 public class VideoScreenController : MonoBehaviour
 {
-    //public VideoPlayer videoScreen;
-    public MediaPlayer videoScreen;
+    public VideoPlayer videoScreen;
+    public MediaPlayer videoScreenAvPro;
     public GameObject payScreen;
     public GameObject finishScreen;
-    
+
+    public Material AvProMaterial;
+    public Material StandardMaterial;
+
     // Start is called before the first frame update
     void Start()
     {
-        videoScreen.gameObject.SetActive(false);
+#if UNITY_IOS || UNITY_ANDROID
+        videoScreenAvPro.enabled = false;
+        videoScreen.enabled = true;
+        videoScreen.gameObject.GetComponent<Renderer>().material = StandardMaterial;
+#else
+        videoScreenAvPro.enabled = true;
+        videoScreen.enabled = false;
+        videoScreen.gameObject.GetComponent<Renderer>().material = AvProMaterial;
+#endif
+        videoScreenAvPro.gameObject.SetActive(false);
         payScreen.SetActive(false);
         finishScreen.SetActive(false);
-        
+
         switch (LoginState.VideoState)
         {
             case VideoState.VideoOk:
                 Debug.Log("[VIDEO] " + LoginState.VideoUrl);
-                videoScreen.gameObject.SetActive(true);
-                videoScreen.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL, LoginState.VideoUrl);
+                videoScreenAvPro.gameObject.SetActive(true);
+#if UNITY_IOS || UNITY_ANDROID
+                videoScreen.url = LoginState.VideoUrl;
                 videoScreen.Play();
+#else
+                videoScreenAvPro.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL, LoginState.VideoUrl);
+                videoScreenAvPro.Play();
+#endif
                 break;
             case VideoState.ShowFinished:
                 finishScreen.SetActive(true);
@@ -35,7 +52,7 @@ public class VideoScreenController : MonoBehaviour
             case VideoState.HasToPay:
                 payScreen.SetActive(true);
                 break;
-        } 
+        }
     }
 
     public void NoPaymentURL()
@@ -43,11 +60,9 @@ public class VideoScreenController : MonoBehaviour
         Debug.Log("No Payment button");
         Application.OpenURL("http://elka.w-hub.ru");
     }
-    
+
     public void ShowFinishedURL()
     {
         Application.OpenURL("http://w-hub.ru");
     }
-
-    
 }

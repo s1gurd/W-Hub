@@ -33,7 +33,7 @@ namespace GameFramework.Example.Systems
         protected override void OnUpdate()
         {
             var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var metrica = AppMetrica.Instance;
+            //var metrica = AppMetrica.Instance;
             
             Entities.With(_queryGameState).ForEach(
                 (Entity entity, GameState state) =>
@@ -48,8 +48,7 @@ namespace GameFramework.Example.Systems
                         {
                             metricaEventDict.Clear();
                             metricaEventDict.Add("level",1);
-                            state.metrica.ReportEvent("level_start", metricaEventDict);
-                            state.metrica.SendEventsBuffer();
+                           
                             Debug.Log("[GAMESTATE] Appmetrica level start");
                             var panels = ActorSpawn.Spawn(state.sampleSpawner, state.userPlayer.Actor);
 
@@ -130,8 +129,7 @@ namespace GameFramework.Example.Systems
                                 metricaEventDict.Add("result","lose");
                                 metricaEventDict.Add("time", (int)(Time.ElapsedTime - state.startTime));
                                 metricaEventDict.Add("progress", 100);
-                                state.metrica.ReportEvent("level_finish", metricaEventDict);
-                                state.metrica.SendEventsBuffer();
+                                
                                 Debug.Log("[GAMESTATE] Appmetrica Finish event lose");
                                 state.losePanel.SetActive(true);
                             }
@@ -145,8 +143,7 @@ namespace GameFramework.Example.Systems
                         metricaEventDict.Add("result","win");
                         metricaEventDict.Add("time", (int)(Time.ElapsedTime - state.startTime));
                         metricaEventDict.Add("progress", 100);
-                        state.metrica.ReportEvent("level_finish", metricaEventDict);
-                        state.metrica.SendEventsBuffer();
+                        
                         Debug.Log("[GAMESTATE] Appmetrica Finish event win");
                         state.winPanel.SetActive(true);
                     }

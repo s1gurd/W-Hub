@@ -29,8 +29,8 @@ namespace GameFramework.Example.Common
         [HideInInspector]
         public List<AbilityActorPlayer> players;
 
-        [HideInInspector] 
-        public IYandexAppMetrica metrica;
+        //[HideInInspector] 
+        //public IYandexAppMetrica metrica;
 
         [HideInInspector] 
         public double startTime;
@@ -67,7 +67,7 @@ namespace GameFramework.Example.Common
                 winPanel,
                 losePanel
             };
-            metrica = AppMetrica.Instance;
+            //metrica = AppMetrica.Instance;
             Setup();
         }
         

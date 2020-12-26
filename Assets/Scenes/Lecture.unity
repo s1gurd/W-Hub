@@ -1587,9 +1587,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f7c69d1895b4a098b4aed70c6be2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoScreen: {fileID: 962512866}
+  videoScreen: {fileID: 962512865}
+  videoScreenAvPro: {fileID: 962512866}
   payScreen: {fileID: 1208451785}
   finishScreen: {fileID: 540143653}
+  AvProMaterial: {fileID: 2100000, guid: d1652ab31ec7f49429d62f6d92132adb, type: 2}
+  StandardMaterial: {fileID: 2100000, guid: 2005e0be460ebbc4289d466ab4a99a85, type: 2}
 --- !u!1001 &575539350
 PrefabInstance:
   m_ObjectHideFlags: 0
