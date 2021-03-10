@@ -421,7 +421,7 @@ namespace Unity.Entities
                     PrefilterData = prefilterData,
                     UnfilteredChunkCount = unfilteredChunkCount
                 };
-                if (mode == ScheduleMode.Batched)
+                if (mode == ScheduleMode.Parallel)
                     prefilterHandle = prefilteringJob.Schedule(dependsOn);
                 else
                     prefilteringJob.Run();
@@ -435,7 +435,7 @@ namespace Unity.Entities
                     UnfilteredChunkCount = unfilteredChunkCount,
                     entityComponentStore = archetypes.entityComponentStore
                 };
-                if (mode == ScheduleMode.Batched)
+                if (mode == ScheduleMode.Parallel)
                     prefilterHandle = gatherJob.Schedule(dependsOn);
                 else
                     gatherJob.Run();

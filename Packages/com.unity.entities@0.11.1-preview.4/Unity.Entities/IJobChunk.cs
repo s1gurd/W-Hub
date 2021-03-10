@@ -91,7 +91,7 @@ namespace Unity.Entities
         public static unsafe JobHandle Schedule<T>(this T jobData, EntityQuery query, JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobChunk
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, true);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, true);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Unity.Entities
         public static unsafe JobHandle ScheduleSingle<T>(this T jobData, EntityQuery query, JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobChunk
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, false);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, false);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Unity.Entities
         public static unsafe JobHandle ScheduleParallel<T>(this T jobData, EntityQuery query, JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobChunk
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, true);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, true);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Unity.Entities
             }
             else
             {
-                if (mode == ScheduleMode.Batched)
+                if (mode == ScheduleMode.Parallel)
                     return JobsUtility.ScheduleParallelForDeferArraySize(ref scheduleParams, 1, deferredCountData, null);
                 else
                     return JobsUtility.ScheduleParallelFor(ref scheduleParams, unfilteredChunkCount, unfilteredChunkCount);
@@ -227,8 +227,8 @@ namespace Unity.Entities
             public static IntPtr InitializeSingle()
             {
                 if (s_JobReflectionDataSingle == IntPtr.Zero)
-                    s_JobReflectionDataSingle = JobsUtility.CreateJobReflectionData(typeof(JobChunkWrapper<T>),
-                        typeof(T), JobType.Single, (ExecuteJobFunction)Execute);
+                    { s_JobReflectionDataSingle = JobsUtility.CreateJobReflectionData(typeof(JobChunkWrapper<T>),
+                        typeof(T), (ExecuteJobFunction)Execute); }
 
                 return s_JobReflectionDataSingle;
             }
@@ -236,8 +236,8 @@ namespace Unity.Entities
             public static IntPtr InitializeParallel()
             {
                 if (s_JobReflectionDataParallel == IntPtr.Zero)
-                    s_JobReflectionDataParallel = JobsUtility.CreateJobReflectionData(typeof(JobChunkWrapper<T>),
-                        typeof(T), JobType.ParallelFor, (ExecuteJobFunction)Execute);
+                    { s_JobReflectionDataParallel = JobsUtility.CreateJobReflectionData(typeof(JobChunkWrapper<T>),
+                        typeof(T), (ExecuteJobFunction)Execute); }
 
                 return s_JobReflectionDataParallel;
             }

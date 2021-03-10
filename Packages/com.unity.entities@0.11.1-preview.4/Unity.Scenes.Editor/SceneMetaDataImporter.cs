@@ -4,11 +4,11 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Scenes;
 using UnityEditor;
-using UnityEditor.Experimental.AssetImporters;
+
 using UnityEditor.SceneManagement;
 
-[ScriptedImporter(39, "sceneMetaData")]
-class SceneMetaDataImporter : ScriptedImporter
+[UnityEditor.AssetImporters.ScriptedImporter(39, "sceneMetaData")]
+class SceneMetaDataImporter : UnityEditor.AssetImporters.ScriptedImporter
 {
     public static readonly int CurrentFileFormatVersion = 1;
 
@@ -34,7 +34,7 @@ class SceneMetaDataImporter : ScriptedImporter
         return guids;
     }
 
-    public override void OnImportAsset(AssetImportContext ctx)
+    public override void OnImportAsset(UnityEditor.AssetImporters.AssetImportContext ctx)
     {
         var scene = EditorSceneManager.OpenScene(ctx.assetPath, OpenSceneMode.Additive);
         try

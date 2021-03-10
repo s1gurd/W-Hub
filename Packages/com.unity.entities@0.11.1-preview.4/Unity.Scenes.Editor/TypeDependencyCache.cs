@@ -2,7 +2,7 @@ using System;
 using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
-using AssetImportContext = UnityEditor.Experimental.AssetImporters.AssetImportContext;
+using AssetImportContext = UnityEditor.AssetImporters.AssetImportContext;
 using System.Reflection;
 using Unity.Entities.Serialization;
 using Unity.Profiling;
@@ -60,21 +60,21 @@ namespace Unity.Scenes.Editor
             int fileFormatVersion = SerializeUtility.CurrentFileFormatVersion;
             UnityEngine.Hash128 fileFormatHash = default;
             HashUnsafeUtilities.ComputeHash128(&fileFormatVersion, sizeof(int), &fileFormatHash);
-            UnityEditor.Experimental.AssetDatabaseExperimental.RegisterCustomDependency("EntityBinaryFileFormatVersion", fileFormatHash);
+            AssetDatabase.RegisterCustomDependency("EntityBinaryFileFormatVersion", fileFormatHash);
         }
 
         static void RegisterComponentTypes()
         {
             TypeManager.Initialize();
 
-            UnityEditor.Experimental.AssetDatabaseExperimental.UnregisterCustomDependencyPrefixFilter("DOTSType/");
+            AssetDatabase.UnregisterCustomDependencyPrefixFilter("DOTSType/");
             int typeCount = TypeManager.GetTypeCount();
 
             for (int i = 1; i < typeCount; ++i)
             {
                 var typeInfo = TypeManager.GetTypeInfo(i);
                 var hash = typeInfo.StableTypeHash;
-                UnityEditor.Experimental.AssetDatabaseExperimental.RegisterCustomDependency(TypeString(typeInfo.Type),
+                AssetDatabase.RegisterCustomDependency(TypeString(typeInfo.Type),
                     new UnityEngine.Hash128(hash, hash));
             }
         }
@@ -130,7 +130,7 @@ namespace Unity.Scenes.Editor
                 HashUnsafeUtilities.ComputeHash128(&version, sizeof(int), &hash);
             }
 
-            UnityEditor.Experimental.AssetDatabaseExperimental.RegisterCustomDependency(SystemsVersion, hash);
+            AssetDatabase.RegisterCustomDependency(SystemsVersion, hash);
         }
 
         public static void AddDependency(AssetImportContext ctx, ComponentType type)

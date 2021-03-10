@@ -128,7 +128,7 @@ namespace Unity.Entities
             JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobEntityBatch
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, 1, false);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, 1, false);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Unity.Entities
             JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobEntityBatch
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, 1, true);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, 1, true);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Unity.Entities
             JobHandle dependsOn = default(JobHandle))
             where T : struct, IJobEntityBatch
         {
-            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Batched, batchesPerChunk, true);
+            return ScheduleInternal(ref jobData, query, dependsOn, ScheduleMode.Parallel, batchesPerChunk, true);
         }
 
         /// <summary>
@@ -274,11 +274,10 @@ namespace Unity.Entities
             public static IntPtr InitializeSingle()
             {
                 if (s_JobReflectionDataSingle == IntPtr.Zero)
-                    s_JobReflectionDataSingle = JobsUtility.CreateJobReflectionData(
+                    { s_JobReflectionDataSingle = JobsUtility.CreateJobReflectionData(
                         typeof(JobEntityBatchWrapper<T>),
                         typeof(T),
-                        JobType.Single,
-                        (ExecuteJobFunction)Execute);
+                        (ExecuteJobFunction)Execute); }
 
                 return s_JobReflectionDataSingle;
             }
@@ -286,11 +285,10 @@ namespace Unity.Entities
             public static IntPtr InitializeParallel()
             {
                 if (s_JobReflectionDataParallel == IntPtr.Zero)
-                    s_JobReflectionDataParallel = JobsUtility.CreateJobReflectionData(
+                    { s_JobReflectionDataParallel = JobsUtility.CreateJobReflectionData(
                         typeof(JobEntityBatchWrapper<T>),
                         typeof(T),
-                        JobType.ParallelFor,
-                        (ExecuteJobFunction)Execute);
+                        (ExecuteJobFunction)Execute); }
 
                 return s_JobReflectionDataParallel;
             }
