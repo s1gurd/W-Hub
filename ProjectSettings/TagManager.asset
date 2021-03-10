@@ -9,6 +9,8 @@ TagManager:
   - ProximityCollider
   - NPC
   - Interactive
+  - Negotiation
+  - Lection
   layers:
   - Default
   - TransparentFX

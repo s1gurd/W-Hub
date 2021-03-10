@@ -17,9 +17,13 @@ public class LoginController : MonoBehaviour
     public GameObject loading;
     public Text errorMessage;
     
+    public bool skipLogin;
+    
     // Start is called before the first frame update
     void Start()
     {
+        if (skipLogin) SceneManager.LoadScene(1);
+        
         if (PlayerPrefs.HasKey("name"))
         {
             login.text = PlayerPrefs.GetString("name");

@@ -10,8 +10,11 @@ using V3D.Controllers;
 
 public class UIControllerBase : MonoBehaviour
 {
+    public GameObject ActivitiesButton;
+    public GameObject ActivitiesMenu;
+
     public GameObject LectionButton;
-    public GameObject LectionMenu;
+    public GameObject NegotiationButton;
 
     public GameObject UserButton;
     public GameObject UserMenu;
@@ -57,24 +60,20 @@ public class UIControllerBase : MonoBehaviour
 
         if (UIActive) return;
 
-        if (!UIActive && _hit.collider.gameObject.tag.Equals("Interactive", StringComparison.Ordinal))
+        HideButtons();
+        
+        switch (_hit.collider.gameObject.tag)
         {
-            LectionButton.SetActive(true);
-        }
-        else
-        {
-            LectionButton.SetActive(false);
-        }
+            case "Interactive": ActivitiesButton.SetActive(true);
+                break;
+            case "Lection": LectionButton.SetActive(true);
+                break;
+            case "Negotiation": NegotiationButton.SetActive(true);
+                break;
 
-//        if (!UIActive && _hit.collider.gameObject.tag.Equals("NPC", StringComparison.Ordinal))
-//        {
-//            UserButton.SetActive(true);
-//        }
-//        else
-//        {
-//            UserButton.SetActive(false);
-//        }
 
+        }
+        
         
     }
 
@@ -100,12 +99,20 @@ public class UIControllerBase : MonoBehaviour
 
     private void HideAll()
     {
+        ActivitiesMenu?.SetActive(false);
         
         UIActive = false;
-        LectionButton?.SetActive(false);
-        LectionMenu?.SetActive(false);
+        
+        HideButtons();
 
         UserButton?.SetActive(false);
         UserMenu?.SetActive(false);
+    }
+
+    private void HideButtons()
+    {
+        ActivitiesButton?.SetActive(false);
+        LectionButton?.SetActive(false);
+        NegotiationButton?.SetActive(false);
     }
 }

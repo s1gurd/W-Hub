@@ -1285,6 +1285,7 @@ MonoBehaviour:
   errorForm: {fileID: 82164942}
   loading: {fileID: 125397078}
   errorMessage: {fileID: 176412179}
+  skipLogin: 1
 --- !u!1 &973024024
 GameObject:
   m_ObjectHideFlags: 0

@@ -453,30 +453,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 398756602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8d79eb59c04294bc4318b766629486, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c3f496a59c885444bfbc6a760d10d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentName: 
+  componentName: 
   SpawnData:
+    spawnerDisabled: 0
     objectsToSpawn:
     - {fileID: 9205056724610329325, guid: c1646d3b118824e00a4abd53eef9b5f1, type: 3}
     spawnPosition: 0
     spawnPointsFillingMode: 0
     fillSpawnPoints: 0
-    x: 1
+    x: 0
     skipBusySpawnPoints: 0
+    spawnPointsFrom: 0
     spawnPoints:
     - {fileID: 1394777565}
-    - {fileID: 1300768069}
-    - {fileID: 1591981762}
-    - {fileID: 699958036}
-    - {fileID: 1191341038}
-    - {fileID: 960872504}
-    - {fileID: 922559741}
-    - {fileID: 36051950}
-    - {fileID: 1316768581}
-    - {fileID: 687228870}
-    - {fileID: 1686837451}
+    spawnPointTag: 
     rotationOfSpawns: 0
     parentOfSpawns: 0
     actorWithComponentName: 
@@ -486,6 +479,8 @@ MonoBehaviour:
     copyComponentsOfType: 0
     deleteExistingComponents: 0
     runSpawnActionsOnObjects: 1
+    destroyAbilityAfterSpawn: 0
+    randomSeed: 0
 --- !u!114 &398756604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,9 +490,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 398756602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c546d784df4466cae88d911fdc737d, type: 3}
+  m_Script: {fileID: 11500000, guid: 80e92147afb81fb4eb4d33688fa84a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDummyMeta: 0
 --- !u!4 &398756605
 Transform:
   m_ObjectHideFlags: 0
@@ -521,21 +517,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 398756602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8d79eb59c04294bc4318b766629486, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c3f496a59c885444bfbc6a760d10d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentName: 
+  componentName: 
   SpawnData:
+    spawnerDisabled: 0
     objectsToSpawn:
     - {fileID: 3348459385610614726, guid: d37a2776ae3a74440ab53de10da49fdd, type: 3}
     spawnPosition: 0
     spawnPointsFillingMode: 0
     fillSpawnPoints: 0
-    x: 1
+    x: 0
     skipBusySpawnPoints: 0
+    spawnPointsFrom: 0
     spawnPoints:
-    - {fileID: 398756602}
-    rotationOfSpawns: 3
+    - {fileID: 0}
+    spawnPointTag: 
+    rotationOfSpawns: 0
     parentOfSpawns: 0
     actorWithComponentName: 
     parentTag: 
@@ -544,6 +543,8 @@ MonoBehaviour:
     copyComponentsOfType: 0
     deleteExistingComponents: 0
     runSpawnActionsOnObjects: 1
+    destroyAbilityAfterSpawn: 0
+    randomSeed: 0
 --- !u!1 &538429570
 GameObject:
   m_ObjectHideFlags: 0
