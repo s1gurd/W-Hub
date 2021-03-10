@@ -536,7 +536,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e951cdd88fa6fd43aecfea9cb7449b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7514b0c44a0b86b4d8c7a3bcd75ece12, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -642,8 +642,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288234455}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3.83, z: -13.58}
-  m_LocalScale: {x: 0.82502, y: 1, z: 0.46335563}
+  m_LocalPosition: {x: 0, y: 4.9399996, z: -13.58}
+  m_LocalScale: {x: 1.498878, y: 1, z: 0.51140565}
   m_Children:
   - {fileID: 374390105}
   m_Father: {fileID: 0}
@@ -1206,7 +1206,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 4.4668e-41, z: 0, w: 0.000000013271347}
+  m_BoundingSphereOverride: {x: 0, y: 5.14e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e951cdd88fa6fd43aecfea9cb7449b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7514b0c44a0b86b4d8c7a3bcd75ece12, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2308,7 +2308,7 @@ RectTransform:
   m_GameObject: {fileID: 1920997338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -13.59}
-  m_LocalScale: {x: 4.3344, y: 4.3344, z: 4.3344}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 4.3344}
   m_Children:
   - {fileID: 1908099079}
   - {fileID: 208581941}
@@ -2317,8 +2317,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 3.8300002}
-  m_SizeDelta: {x: 1.92, y: 1.08}
+  m_AnchoredPosition: {x: 0, y: 4.94}
+  m_SizeDelta: {x: 9.1, y: 3.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1958098476
 PrefabInstance:
